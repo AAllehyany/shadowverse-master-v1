@@ -23,13 +23,13 @@ snapshot.forEach(doc => {
 ---
 
 <Layout title="Tier List">
-	<div class="w-full max-w-screen-md mx-auto">
-		<h1 class="font-bold text-2xl">Top Decks of the Format</h1>
+	<div class="w-full max-w-screen-md mx-auto mt-20">
+		<h1 class="font-bold text-2xl text-white">Top Decks of the Format</h1>
 
 		<div class="grid grid-cols-3 gap-4 mt-10">
 			{decks.map( deck => (
-				<div class="relative h-[50px]">
-					<img class="object-cover w-full h-full absolute" src={deck.image} >
+				<div class="relative h-[50px] border border-secondary rounded-md">
+					<img class="object-cover w-full h-full absolute rounded-md" src={deck.image} >
 					<div class="flex items-center w-full absolute inset-0 p-2">
 						<span class="font-bold text-white text-lg">{deck.name}</span>
 					</div>
