@@ -1,0 +1,81 @@
+---
+import Layout from "../../layouts/Layout.astro"
+import {db} from '../../../firebaseSettings';
+import {collection, collectionGroup, doc, getDoc, getDocs, query, where} from "firebase/firestore";
+
+
+export async function getStaticPaths() {
+  const archetypesRef = collection(db, "rotations/roar-of-the-godwyrm/archetypes");
+  const snapshot = await getDocs(archetypesRef);
+  const pages = [];
+
+  snapshot.forEach(d => pages.push({params: {id: d.id}}))
+
+  return pages;
+}
+
+const {id} = Astro.params;
+
+const archetypeDoc = doc(db, "rotations/roar-of-the-godwyrm/archetypes", id as string);
+const archetypeCol = collection(db, "rotations/roar-of-the-godwyrm/archetypes");
+const q = doc(db, "rotations", "roar-of-the-godwyrm", "archetypes", id as string, "card_stats", "card-stats");
+const archetypeData = await getDoc(archetypeDoc);
+const dat = await getDoc(q);
+
+const archetypeSnap = archetypeData.data();
+
+
+let found = true;
+let stats;
+let coreCards;
+let imagePath = 'https://shadowverse-portal.com/image/card/phase2/common/L/L_';
+if(!dat.exists()) {
+  found = false;
+} else {
+
+  stats = dat.data()
+  coreCards = Object.entries(stats).filter(([_, q]) => q["avg"] >= 2.5);
+}
+---
+
+
+<Layout title="Archetype Breakdown">
+  <div class="w-full max-w-screen-md mx-auto mt-20 px-5">
+    {!found ? <p class="text-white">No Breakdown</p>:
+    <div class="w-full items-center flex flex-col md:flex-row flex-wrap md:items-stretch">
+      <div class="w-full h-[150px] relative md:w-6/12">
+        <img src="https://s3.ca-central-1.wasabisys.com/shadow-data/archetypes/full-art/1222440100.png" 
+          class="absolute w-full h-full object-cover" />
+        <div class="flex w-full absolute items-center justify-center bg-black/50 h-full">
+          <h2 class="text-white font-bold text-2xl">{archetypeSnap.name}</h2>
+        </div>
+      </div>
+
+      <div class="w-full grid grid-cols-2 mt-5 gap-2 md:w-5/12 md:ml-2 md:mt-0">
+        <div class="border border-gray-600 border">
+          <p class="p-1 text-xs text-center text-gray-600">Conversion Rate</p>
+          <span class="text-3xl font-bold text-gray-600 p-5 text-center block">{Math.round(archetypeSnap.winrate * 10) / 10}%</span>
+        </div>
+        <div class="border border-accent border">
+          <p class="p-1 text-xs text-center text-accent">Play Rate</p>
+          <span class="text-3xl font-bold text-accent p-5 text-center block">{Math.round(archetypeSnap.playrate * 10) / 10}%</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="w-full grid grid-cols-1 md:grid-cols-2 mt-8 gap-4">
+      <div class="w-full">
+        <h2 class="text-lg font-bold text-white">Core Cards</h2>
+        <div class="w-full grid grid-cols-3 gap-2 mt-3">
+          {coreCards.map(card => (
+            <img src={imagePath+card[0]+'.jpg'} class="h-[50px] object-cover object-right rounded-md" />
+          ))}
+        </div>
+      </div>
+      <div class="w-full">
+        <h2 class="text-lg font-bold text-white">Sample Lists</h2>
+        <span class="text-red-700 mt-3">Sample decklists go here</span>
+      </div>
+    </div>}
+  </div>
+</Layout>

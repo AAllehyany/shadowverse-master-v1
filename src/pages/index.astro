@@ -1,12 +1,13 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import {db} from '../../firebaseSettings';
-import {collection, getDocs, orderBy, limit, query, where} from "firebase/firestore";
+import {collection, getDocs, orderBy, limit, query, where, collectionGroup, getDoc} from "firebase/firestore";
 
 const decks = [];
 
-const archetypesRef = collection(db, "archetypes");
-const q = query(archetypesRef, orderBy("points", "desc"), where("points", ">", 40));
+const archetypesRef = collection(db, "rotations/roar-of-the-godwyrm/archetypes");
+const q = query(archetypesRef, orderBy("points", "desc"), where("points", ">", 5));
+
 const snapshot = await getDocs(q);
 const imageBucket = 'https://s3.ca-central-1.wasabisys.com/shadow-data/archetypes/wyrm/';
 let total = 0;
@@ -16,7 +17,7 @@ snapshot.forEach(doc => {
 	decks.push({
 		name: d.name,
 		points: d.points,
-		image: imageBucket + d.name.toLowerCase().replaceAll(' ', '-') + '.jpg'
+		id: doc.id
 	})
 })
 
@@ -26,12 +27,12 @@ snapshot.forEach(doc => {
 	<div class="w-full max-w-screen-md mx-auto mt-20">
 		<h1 class="font-bold text-2xl text-white">Top Decks of the Format</h1>
 
-		<div class="grid grid-cols-3 gap-4 mt-10">
+		<div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-10">
+
 			{decks.map( deck => (
 				<div class="relative h-[50px] border border-secondary rounded-md">
-					<img class="object-cover w-full h-full absolute rounded-md" src={deck.image} >
 					<div class="flex items-center w-full absolute inset-0 p-2">
-						<span class="font-bold text-white text-lg">{deck.name}</span>
+						<a href={"archetype/"+deck.id} class="font-bold text-white text-lg">{deck.name}</a>
 					</div>
 				</div>
 			))}

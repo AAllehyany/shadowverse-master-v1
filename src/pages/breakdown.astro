@@ -1,0 +1,31 @@
+---
+import Layout from "../layouts/Layout.astro"
+import {db} from '../../firebaseSettings';
+import {collection, getDocs, orderBy, limit, query, where, doc, getDoc} from "firebase/firestore";
+
+
+const statsRef = doc(db, "archetype-stats", "evo-rally-sword")
+const statsSnap = await getDoc(statsRef);
+
+const stats = statsSnap.data()
+const coreCards = Object.entries(stats.cards).filter(([_, q]) => q === 3);
+const imagePath = 'https://s3.ca-central-1.wasabisys.com/shadow-data/card-images/';
+---
+
+
+<Layout title="Archetype Breakdown">
+  <div class="w-full max-w-screen-md mx-auto mt-20">
+
+
+    <h1 class="text-lg text-accent font-bold mb-6">Core Cards</h1>
+
+    <div class="grid grid-cols-3 gap-4 w-4/12">
+      {coreCards.map(d => (
+        <div class="text-center">
+          <img src={imagePath+d[0]+'.png'} class="w-[100px] h-auto" />
+          <span class="font-bold text-white">{d[1]}x</span>
+        </div>
+      ))}
+    </div>
+  </div>
+</Layout>
