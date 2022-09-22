@@ -30,11 +30,15 @@ snapshot.forEach(doc => {
 		<div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-10">
 
 			{decks.map( deck => (
-				<div class="relative h-[50px] border border-secondary rounded-md">
-					<div class="flex items-center w-full absolute inset-0 p-2">
-						<a href={"archetype/"+deck.id} class="font-bold text-white text-lg">{deck.name}</a>
+				<a href={"archetype/"+deck.id}>
+					<div class="w-full h-[80px] relative border-white border">
+						<img src={imageBucket+deck.id+'.png'} 
+							class="absolute w-full h-full object-cover" />
+						<div class="flex w-full absolute items-center justify-center bg-black/75 h-full">
+							<h2 class="text-white font-bold text-2xl">{deck.name}</h2>
+						</div>
 					</div>
-				</div>
+				</a>
 			))}
 		</div>
 	</div>
