@@ -3,46 +3,15 @@ import Layout from "../../layouts/Layout.astro"
 import {db} from '../../../firebaseSettings';
 import {collection, collectionGroup, doc, getDoc, getDocs, query, where} from "firebase/firestore";
 
-
-export async function getStaticPaths() {
-  const archetypesRef = collection(db, "rotations/roar-of-the-godwyrm/archetypes");
-  const snapshot = await getDocs(archetypesRef);
-  const pages = [];
-
-  snapshot.forEach(d => pages.push({params: {id: d.id}}))
-
-  return pages;
-}
-
 const {id} = Astro.params;
 
-const archetypeDoc = doc(db, "rotations/roar-of-the-godwyrm/archetypes", id as string);
-const archetypeCol = collection(db, "rotations/roar-of-the-godwyrm/archetypes");
-const q = doc(db, "rotations", "roar-of-the-godwyrm", "archetypes", id as string, "card_stats", "card-stats");
-const archetypeData = await getDoc(archetypeDoc);
-const dat = await getDoc(q);
-
-const archetypeSnap = archetypeData.data();
-
-
-let found = true;
-let stats;
-let coreCards;
-let imagePath = 'https://shadowverse-portal.com/image/card/phase2/common/L/L_';
-const archetypeHeader = 'https://s3.ca-central-1.wasabisys.com/shadow-data/archetypes/wyrm/' + id + '.png';
-if(!dat.exists()) {
-  found = false;
-} else {
-
-  stats = dat.data()
-  coreCards = Object.entries(stats).filter(([_, q]) => q["avg"] >= 2.5);
-}
 ---
 
 
 <Layout title="Archetype Breakdown">
   <div class="w-full max-w-screen-md mx-auto mt-20 px-5">
-    {!found ? <p class="text-white">No Breakdown</p>:
+    <h1>BREAKDOWN {id}</h1>
+    <!-- {!found ? <p class="text-white">No Breakdown</p>:
     <div class="w-full items-center flex flex-col md:flex-row flex-wrap md:items-stretch">
       <div class="w-full h-[150px] relative md:w-6/12">
         <img src={archetypeHeader} 
@@ -77,6 +46,6 @@ if(!dat.exists()) {
         <h2 class="text-lg font-bold text-white">Sample Lists</h2>
         <span class="text-red-700 mt-3">Sample decklists go here</span>
       </div>
-    </div>}
+    </div>} -->
   </div>
 </Layout>

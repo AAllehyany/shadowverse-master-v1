@@ -7,6 +7,10 @@ module.exports = {
 				"primary": "#020202",
 				"secondary": "#71bf67",
 				"accent": "#f8ac11"
+			},
+			fontFamily: {
+				'oswald': ['Oswald', 'sans-serif'],
+				'merriweather': ['Merriweather', 'serif']
 			}
 		},
 	},

@@ -1,0 +1,24 @@
+---
+export interface Props {
+  craft: string;
+  link: string;
+  title: string;
+}
+
+
+const {craft, link, title} = Astro.props;
+const imageUrl = `https://s3.ca-central-1.wasabisys.com/shadow-master/craft-thumbnails/${craft}.png`
+---
+
+<div class="flex p-3 items-center justify-between">
+  <div class="flex items-center">
+    <img
+      class="object-cover w-10 h-10 rounded-lg" 
+      src={imageUrl} alt="">
+      <a href={link} target="_blank" class="ml-2 text-white text-lg font-oswald">{title}</a>
+    </div>
+  <div class="text-left">
+    
+  </div>
+  <a href={link} target="_blank" class="px-4 py-1 bg-gray-600 text-white hover:bg-accent rounded-md">Get Code</a>
+</div>

@@ -1,4 +1,7 @@
 ---
+import '@fontsource/oswald';
+import '@fontsource/merriweather';
+
 export interface Props {
 	title: string;
 }
@@ -16,13 +19,21 @@ const { title } = Astro.props;
 		<title>{title}</title>
 	</head>
 	<body class="bg-primary">
-		<div class="w-full max-w-screen-md mx-auto py-5 flex justify-between items-center">
+		<div class="p-5 w-full max-w-screen-md mx-auto py-5 flex justify-between items-center">
 			<a href="/" class="text-secondary font-bold text-xl">Shadowverse Data</a>
 			<div class="flex items-center">
 				<a href="#" class="text-md text-accent mr-5">About</a>
-				<a href="#" class="text-md text-accent mr-5">Decks</a>
+				<a href="/decks" class="text-md text-accent mr-5">Decks</a>
 			</div>
 		</div>
-		<slot />
+		<div class="p-5">
+			<slot />
+		</div>
+
+		<div class="mt-8 w-full max-w-screen-md mx-auto flex justify-center">
+			<span class="text-sm text-secondary">
+				All data used on the website is provided by <a href="https://twitter.com/Zhiff_SV" class="text-blue-600 hover:text-blue-300">@Zhiff_SV</a>
+			</span>
+		</div>
 	</body>
 </html>

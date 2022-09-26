@@ -1,0 +1,20 @@
+---
+import Layout from "../layouts/Layout.astro";
+import SubmitDeck from '../components/SubmitDeck.svelte'
+---
+
+<Layout title='Add a new deck'>
+  <div class="w-full max-w-screen-md mx-auto mt-20">
+    <h1 class="font-bold text-white text-2xl">Submit A Deck</h1>
+    
+    <SubmitDeck client:load />
+
+    <div class="mt-10">
+      <!-- <h3 class="text-md text-secondary font-bold">How to submit:</h3> -->
+      <p class="text-gray-600 text-md">
+        *The deck will be added to the list of decks and will be sorted by the craft of the deck.<br>
+        Your username will be shown next to the deck list, and a link to your twitter profile will be added.
+      </p>
+    </div>
+  </div>
+</Layout>
