@@ -23,15 +23,15 @@ const imageUrl = `https://s3.ca-central-1.wasabisys.com/shadow-master/craft-thum
 		</div>
 
 		<div class="w-full grid grid-cols-1 mt-10 md:grid-cols-2 md:gap-5">
-			<div class="border-gray-600 border">
-				<h2 class="w-full bg-gray-600 text-white font-md font-bold font-merriweather p-3">Recent Community Decks</h2>
+			<div class="border-gray-600 border rounded-lg">
+				<h2 class="rounded-t-lg w-full bg-gray-600 text-white font-md font-bold font-merriweather p-3">Recent Community Decks</h2>
 				<div>
 					{recentDecks.map(d => <DeckRow craft={d.craft} title={d.title} link={d.deck_link} />)}
 				</div>
 			</div>
 
-			<div class="border-green-600 border mt-5 md:mt-0">
-				<h2 class="w-full bg-green-600 text-white font-md font-bold font-merriweather p-3">Crafts by Popularity</h2>
+			<div class="rounded-lg border-green-600 border mt-5 md:mt-0 rouned-lg">
+				<h2 class="rounded-t-lg w-full bg-green-600 text-white font-md font-bold font-merriweather p-3">Crafts by Popularity</h2>
 				<div>
 					{crafts.map(craft => <>
 						<div class="flex p-3 items-center justify-between">
@@ -46,19 +46,5 @@ const imageUrl = `https://s3.ca-central-1.wasabisys.com/shadow-master/craft-thum
 				</div>
 			</div>
 		</div>
-		<!-- <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-10">
-
-			{decks.map( deck => (
-				<a href={"archetype/"+deck.id}>
-					<div class="w-full h-[80px] relative border-white border">
-						<img src={imageBucket+deck.slug+'.png'} 
-							class="absolute w-full h-full object-cover" />
-						<div class="flex w-full absolute items-center justify-center bg-black/75 h-full">
-							<h2 class="text-white font-bold text-2xl">{deck.name}</h2>
-						</div>
-					</div>
-				</a>
-			))}
-		</div> -->
 	</div>
 </Layout>
