@@ -15,7 +15,7 @@ const imageUrl = `https://s3.ca-central-1.wasabisys.com/shadow-master/craft-thum
       <h1 class="text-accent font-oswald text-lg mb-3">Filter By Craft</h1>
       <div class="flex flex-wrap items-center">
         {crafts.map(craft => <>
-          <div class="mx-2 flex flex-col items-center">
+          <div class="m-2 flex flex-col items-center">
             <a href={`/craft/${craft.name.toLowerCase()}`}><img
               class="border-2 border-white object-cover w-12 h-12 rounded-lg" 
               src={imageUrl+craft.name.toLowerCase()+'.png'} alt=""></a>
