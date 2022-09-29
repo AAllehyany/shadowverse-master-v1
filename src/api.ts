@@ -1,6 +1,9 @@
 import {db, auth} from '../firebaseSettings';
 
 import {addDoc, collection, getDocs,limit,serverTimestamp, query, orderBy, where} from "firebase/firestore";
+import { ArchetypeData, DeckData } from './interfaces';
+
+const archetypeBucket = `https://s3.ca-central-1.wasabisys.com/shadow-master/archetypes/`
 
 
 export async function createNewDeck(deckLink: string, clan: string, archetype: string) {
@@ -46,10 +49,16 @@ export async function getAllDecksByCraft(craft: string) {
 export async function getRecentCommunityDecks() {
   const postedCollection = collection(db, 'posted_decks');
   const recentDecks = await getDocs(query(postedCollection, limit(8)));
-  let result = [];
+  let result: DeckData[] = [];
 
   recentDecks.forEach(doc => {
-    result.push(doc.data());
+    let d = doc.data();
+    result.push({
+      imageURL: `${archetypeBucket}${d.archetype.replaceAll('_', '-')}.png`,
+      player: d.user_name,
+      deckLink: `https://shadowverse-portal.com/deck/${d.deck_link}`,
+      archetype: d.archetype.replaceAll('_', ' ')
+    });
   })
 
   return result;
@@ -65,4 +74,25 @@ export async function getAllCrafts() {
   })
 
   return result;
+}
+
+export async function getPopularArchetypes() {
+  const archetypeCollection = collection(db, 'archetypes');
+  const q = query(archetypeCollection, orderBy('decks', 'desc'), limit(5));
+
+  let result: ArchetypeData[] = [];
+  const archetypes = await getDocs(q);
+
+  archetypes.forEach(doc => {
+    let d = doc.data();
+
+    result.push({
+      imageURL: `${archetypeBucket}${d.slug}.png`,
+      name: d.name,
+      slug: d.slug
+    })
+  })
+
+  return result;
+
 }
