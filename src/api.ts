@@ -1,18 +1,17 @@
-import {db} from '../firebaseSettings';
+import {db, auth} from '../firebaseSettings';
+
 import {addDoc, collection, getDocs,limit,serverTimestamp, query, orderBy, where} from "firebase/firestore";
+
 
 export async function createNewDeck(deckLink: string, clan: string, name: string, username: string) {
 
-  let title = name ? name : `${clan} Deck`
-  let user = username ? username : 'anonymous'
-
   const postedCollection = collection(db, 'posted_decks');
+  const user = auth.currentUser;
   return await addDoc(postedCollection, {
     deck_link: deckLink,
-    craft: clan,
     created_at: serverTimestamp(),
-    title: title,
-    user: user
+    user_id: user ? user.uid : "0",
+    user_name: user ? user.displayName : "unknown"
   });
 }
 

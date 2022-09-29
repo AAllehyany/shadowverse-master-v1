@@ -3,9 +3,9 @@ import Layout from '../layouts/Layout.astro';
 import {getRecentCommunityDecks, getAllCrafts} from '../api'
 import DeckRow from '../components/DeckRow.astro';
 
-const recentDecks = await getRecentCommunityDecks();
-const crafts = await getAllCrafts();
-const imageUrl = `https://s3.ca-central-1.wasabisys.com/shadow-master/craft-thumbnails/`
+// const recentDecks = await getRecentCommunityDecks();
+// const crafts = await getAllCrafts();
+// const imageUrl = `https://s3.ca-central-1.wasabisys.com/shadow-master/craft-thumbnails/`
 
 
 ---
@@ -13,38 +13,5 @@ const imageUrl = `https://s3.ca-central-1.wasabisys.com/shadow-master/craft-thum
 <Layout title="Shadowverse Master">
 	<div class="w-full max-w-screen-md mx-auto mt-10">
 
-		<div class="w-full">
-			<h1 class="text-secondary text-7xl font-oswald">Shadowverse is Great,<br> and so Are You.</h1>
-			<p class="text-white text-md font-merriweather mt-7">Share decks to give people ideas, and increase their awareness of popular and relevant decks.</p>
-			<div class="w-full flex justify-end mt-8 items-center">
-				<a href="/new-deck" class="text-white py-2 px-7 rounded-md bg-secondary hover:bg-accent">Share a Deck</a>
-				<a href="/decks" class="text-gray-400 py-2 px-7 rounded-md  ml-2">or browse decks</a>
-			</div>
-		</div>
-
-		<div class="w-full grid grid-cols-1 mt-10 md:grid-cols-2 md:gap-5">
-			<div class="border-gray-600 border rounded-lg">
-				<h2 class="rounded-t-lg w-full bg-gray-600 text-white font-md font-bold font-merriweather p-3">Recent Community Decks</h2>
-				<div>
-					{recentDecks.map(d => <DeckRow craft={d.craft} title={d.title} link={d.deck_link} />)}
-				</div>
-			</div>
-
-			<div class="rounded-lg border-green-600 border mt-5 md:mt-0 rouned-lg">
-				<h2 class="rounded-t-lg w-full bg-green-600 text-white font-md font-bold font-merriweather p-3">Crafts by Popularity</h2>
-				<div>
-					{crafts.map(craft => <>
-						<div class="flex p-3 items-center justify-between">
-							<div class="flex items-center">
-								<img
-									class="object-cover w-10 h-10 rounded-lg" 
-									src={imageUrl+craft.name.toLowerCase()+'.png'} alt="">
-									<a href={`/craft/${craft.name.toLowerCase()}`} class="ml-2 text-white text-lg font-oswald">{craft.name}</a>
-							</div>
-						</div>
-					</>)}
-				</div>
-			</div>
-		</div>
 	</div>
 </Layout>
