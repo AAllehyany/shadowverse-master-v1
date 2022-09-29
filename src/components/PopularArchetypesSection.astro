@@ -1,0 +1,28 @@
+---
+import { ArchetypeData } from '../interfaces';
+import LargePopularArchetype from './archetypes/LargePopularArchetype.astro';
+import PopularArchetype from './archetypes/PopularArchetype.astro';
+
+export interface Props {
+  archetypes: ArchetypeData[]
+}
+
+const {archetypes} = Astro.props;
+const mostPopular = archetypes[0];
+const otherPopular = archetypes.slice(1);
+---
+<div class="w-full">
+  <h1 class="text-white truncate text-lg flex items-center">
+    <span class="text-accent mr-2">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="fill-current w-6 h-6">
+        <path fill-rule="evenodd" d="M14.615 1.595a.75.75 0 01.359.852L12.982 9.75h7.268a.75.75 0 01.548 1.262l-10.5 11.25a.75.75 0 01-1.272-.71l1.992-7.302H3.75a.75.75 0 01-.548-1.262l10.5-11.25a.75.75 0 01.913-.143z" clip-rule="evenodd" />
+      </svg>										
+    </span>
+    Popular Archetypes
+  </h1>
+  <div class="grid grid-cols-2 gap-2 w-full mt-3 md:grid-cols-3">
+
+    <LargePopularArchetype archetype={mostPopular} />
+    {otherPopular.map(archetype => <PopularArchetype archetype={archetype} />)}
+  </div>
+</div>
