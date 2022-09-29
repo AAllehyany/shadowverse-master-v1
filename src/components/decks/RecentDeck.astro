@@ -1,0 +1,26 @@
+---
+import { DeckData } from '../../interfaces';
+
+export interface Props {
+  deck: DeckData
+}
+
+const {deck} = Astro.props
+---
+
+<div class="flex items-center justify-between border border-accent">
+  <div class="flex h-16 items-center">
+    <div class="w-16 h-16">
+      <img src={deck.imageURL} alt={deck.archetype} class="w-full h-full object-cover">
+    </div>
+    <div class="ml-1 h-16 p-2">
+      <h2 class="text-white text-md font-bold">{deck.archetype}</h2>
+      <p class="text-white text-md font-normal">By: {deck.player}</p>
+    </div>
+  </div>
+  <div class="ml-2 h-16 flex items-center bg-accent ">
+    <a href={deck.deckLink} class="text-white px-2 hover:text-secondary" target="_blank">
+      Grab Code
+    </a>
+  </div>
+</div>
