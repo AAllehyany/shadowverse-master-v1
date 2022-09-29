@@ -4,13 +4,15 @@ module.exports = {
 	theme: {
 		extend: {
 			colors: {
-				"primary": "#020202",
-				"secondary": "#71bf67",
-				"accent": "#f8ac11"
+				"primary": "#000000",
+				"primary-light": "#353135",
+				"secondary": "#dfe3e6",
+				"secondary-dark": "#333C42",
+				"accent": "#3d89a1"
 			},
 			fontFamily: {
-				'oswald': ['Oswald', 'sans-serif'],
-				'merriweather': ['Merriweather', 'serif']
+				sans: ['Roboto', 'sans-serif'],
+				heading: ['Roboto', 'sans-serif']
 			}
 		},
 	},
