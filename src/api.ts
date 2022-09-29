@@ -3,7 +3,7 @@ import {db, auth} from '../firebaseSettings';
 import {addDoc, collection, getDocs,limit,serverTimestamp, query, orderBy, where} from "firebase/firestore";
 
 
-export async function createNewDeck(deckLink: string, clan: string, name: string, username: string) {
+export async function createNewDeck(deckLink: string, clan: string, archetype: string) {
 
   const postedCollection = collection(db, 'posted_decks');
   const user = auth.currentUser;
@@ -11,7 +11,9 @@ export async function createNewDeck(deckLink: string, clan: string, name: string
     deck_link: deckLink,
     created_at: serverTimestamp(),
     user_id: user ? user.uid : "0",
-    user_name: user ? user.displayName : "unknown"
+    user_name: user ? user.displayName : "unknown",
+    archetype: archetype,
+    craft: clan
   });
 }
 
