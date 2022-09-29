@@ -2,16 +2,35 @@
 import Layout from '../layouts/Layout.astro';
 import {getRecentCommunityDecks, getAllCrafts} from '../api'
 import DeckRow from '../components/DeckRow.astro';
+import LargePopularArchetype from '../components/archetypes/LargePopularArchetype.astro';
+import PopularArchetype from '../components/archetypes/PopularArchetype.astro';
+import PopularArchetypesSection from '../components/PopularArchetypesSection.astro';
+import { ArchetypeData } from '../interfaces';
+import RecentDeck from '../components/decks/RecentDeck.astro';
+import RecentDecksSection from '../RecentDecksSection.astro';
 
 // const recentDecks = await getRecentCommunityDecks();
 // const crafts = await getAllCrafts();
 // const imageUrl = `https://s3.ca-central-1.wasabisys.com/shadow-master/craft-thumbnails/`
+const puppet: ArchetypeData = {
+	name: "Puppet Portal",
+	slug: "puppet-portal",
+	imageURL: "/puppet-portal.png"
+}
 
+const puppetDeck = {
+	archetype: "Puppet Portal",
+	imageURL: "/puppet-portal.png",
+	player: "unknown",
+	deckLink: "https://shadowverse-portal.com/deck/3.8.7KVAC.7KVAC.7KVAC.7OQdy.7OQdy.7S9uI.7S9uI.7S9uI.7S8Aw.7S8Aw.7S8Aw.7S_by.7S_by.7S_by.7OOBY.7OOBY.7OOBY.7Vxb2.7Vxb2.7Vxb2.7V-1S.7V-1S.7V-1S.7ZmSw.7ZmSw.7SAdA.7SAdA.7SAdA.7W3eg.7W3eg.7W3eg.7OQe6.7OQe6.7OQe6.7W2vo.7W2vo.7W2vo.7Zt2y.7Zt2y.7Zt2y"
+}
 
+const archetypes = [puppet, puppet, puppet, puppet, puppet];
 ---
 
 <Layout title="Shadowverse Master">
-	<div class="w-full max-w-screen-md mx-auto mt-10">
-
-	</div>
+	<div class="w-full max-w-screen-md mx-auto mt-10 px-5">
+		<PopularArchetypesSection archetypes={archetypes} />
+		<RecentDecksSection />
+	</div> 
 </Layout>
