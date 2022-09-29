@@ -21,11 +21,27 @@ export async function get( {params} ) {
   
   const link = `https://shadowverse-portal.com/deck/${data.hash}`
   const crafts = ['neutral', 'forestcraft', 'swordcraft', 'runecraft', 'dragoncraft', 'shadowcraft', 'bloodcraft',
-  'havencraft', 'portalcraft']
+  'havencraft', 'portalcraft'];
+
+  const classifyReq = await fetch(`https://classify-sv.blade-wing.workers.dev/?deck=${link}`);
+  const classifyRes = await classifyReq.json();
+
+  if(classifyRes.errors !== undefined) {
+    const errResponse = {
+      "error": "Failed to fetch deck."
+    }
+    console.log("Failed to classify")
+    return new Response(JSON.stringify(errResponse), {
+      status: 404,
+      statusText: 'Not found'
+    })
+  }
+
   const goodResponse = {
     "error": null,
-    "deckLink": link,
-    "craft": crafts[data.clan]
+    "deckLink": classifyRes.link,
+    "craft": crafts[data.clan],
+    "archetype": classifyRes.archetype_id
   }
   
   return new Response(JSON.stringify(goodResponse), {
