@@ -1,14 +1,12 @@
 ---
 import RecentDeck from "./components/decks/RecentDeck.astro";
+import { DeckData } from "./interfaces";
 
-const puppetDeck = {
-	archetype: "Puppet Portal",
-	imageURL: "/puppet-portal.png",
-	player: "unknown",
-	deckLink: "https://shadowverse-portal.com/deck/3.8.7KVAC.7KVAC.7KVAC.7OQdy.7OQdy.7S9uI.7S9uI.7S9uI.7S8Aw.7S8Aw.7S8Aw.7S_by.7S_by.7S_by.7OOBY.7OOBY.7OOBY.7Vxb2.7Vxb2.7Vxb2.7V-1S.7V-1S.7V-1S.7ZmSw.7ZmSw.7SAdA.7SAdA.7SAdA.7W3eg.7W3eg.7W3eg.7OQe6.7OQe6.7OQe6.7W2vo.7W2vo.7W2vo.7Zt2y.7Zt2y.7Zt2y"
+export interface Props {
+  decks: DeckData[]
 }
 
-const decks = [puppetDeck,puppetDeck,puppetDeck,puppetDeck,puppetDeck,puppetDeck,puppetDeck,puppetDeck];
+const {decks} = Astro.props;
 ---
 
 <div class="w-full mt-20">
