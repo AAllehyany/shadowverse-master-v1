@@ -4,6 +4,12 @@ export interface ArchetypeData {
   slug: string;
 }
 
+export interface ArchetypeBreakdown {
+  name: string;
+  imageURL: string;
+  cards: 
+}
+
 export interface DeckData {
   archetype: string;
   imageURL: string;
