@@ -1,6 +1,6 @@
 import {db, auth} from '../firebaseSettings';
 
-import {addDoc, collection, getDocs,limit,serverTimestamp, query, orderBy, where} from "firebase/firestore";
+import {addDoc, collection, getDocs,limit,serverTimestamp, query, orderBy, where, getDoc, doc} from "firebase/firestore";
 import { ArchetypeData, DeckData } from './interfaces';
 
 const archetypeBucket = `https://s3.ca-central-1.wasabisys.com/shadow-master/archetypes/`
@@ -95,4 +95,18 @@ export async function getPopularArchetypes() {
 
   return result;
 
+}
+
+export async function getArchetypeBySlug(slug: string) {
+
+  const id = slug.toLowerCase().replaceAll('-', '_');
+  const archetypeCollection = collection(db, 'archetypes');
+  const archetypeRef = doc(archetypeCollection, id);
+  const archetypeSnap= await getDoc(archetypeRef);
+  
+  if(!archetypeSnap.exists()) {
+    return null;
+  }
+
+  return archetypeSnap.data();
 }
