@@ -14,13 +14,14 @@ const { archetype } = Astro.props;
 ---
 
 <a href={`/archetype/${archetype.slug}`}
-  class="group relative w-full h-48 md:h-full overflow-hidden border-secondary border">
+  class="group relative w-full h-48 md:h-full overflow-hidden border-secondary/60 border">
   <img src={archetype.imageURL} alt={archetype.slug}
   class="w-full h-full object-cover absolute
   transition duration-300 group-hover:scale-110">
   <div class="w-full h-full flex items-end justify-center absolute">
-    <div class="py-1 w-full flex items-center bg-secondary justify-center">
+    <div class="py-1 w-full flex items-center bg-secondary/60 justify-center">
       <h1 class="text-primary capitalize px-2 truncate text-md">{archetype.name}</h1>
     </div>
   </div>
 </a>
+

@@ -8,6 +8,7 @@ export interface ArchetypeBreakdown {
   name: string;
   imageURL: string;
   cards: object;
+  decks: number;
 }
 
 export interface DeckData {

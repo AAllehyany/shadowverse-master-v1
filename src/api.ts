@@ -108,5 +108,12 @@ export async function getArchetypeBySlug(slug: string) {
     return null;
   }
 
-  return archetypeSnap.data();
+  const data = archetypeSnap.data();
+
+  return {
+    "name": data.name,
+    imageURL: `${archetypeBucket}${data.slug}.png`,
+    cards: data.feature_cards,
+    decks: data.decks || 0
+  }
 }
