@@ -204,11 +204,14 @@ export async function viewDeckList(deckid: number) {
   const {data, error} = await supabase
     .from('deck_cards')
     .select(`
-      card:card_id (card_name, cost),
+      card:card_id (card_name, cost, id),
       copies
     `)
     .eq('deck_id', deckid);
 
   if(error) console.log(error);
-  console.log(data);
+  
+  const result = data.map(d => ({...d, imageLink: `https://shadowverse-portal.com/image/card/phase2/common/L/L_${d.card.id}.jpg`}));
+
+  return result;
 }

@@ -3,10 +3,19 @@ import { viewDeckList } from "../../../api";
 import Layout from "../../../layouts/Layout.astro"
 const {deckId} = Astro.params;
 
-const archetypeData = await viewDeckList(deckId as number);
+const deckData = await viewDeckList(deckId as number);
 ---
 
 <Layout title="Deck View">
 
-  <h1>HELLO</h1>
+  <div class="w-full max-w-screen-lg mx-auto mt-10">
+
+    <h1 class="text-white">Deck Display.</h1>
+
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-1 p-3 ">
+      {deckData.map(d => (
+        <img src={d.imageLink} class="w-full object-cover h-full" />
+      ))}
+    </div>
+  </div>
 </Layout>

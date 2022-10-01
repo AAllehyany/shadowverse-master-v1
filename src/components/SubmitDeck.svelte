@@ -7,6 +7,7 @@
   let errors = null;
   let success = false;
   let loading = false;
+  let deckId = 0;
   async function handleSubmit() {
 
     success = false;
@@ -15,23 +16,17 @@
     // fetch deck from deck code
     try {
       if(deckCode.length == 4) {
-        const res = await supabase.functions.invoke('insert-deck', {
+        const {data, error} = await supabase.functions.invoke('insert-deck', {
           body: JSON.stringify({deckCode}),
 
         })
 
-        console.log(res);
-        // const response = await fetch(`/codes/${deckCode}`);
-        // const json = await response.json();
+        if(data) {
+          deckId = data.deckId;
+          success = true;
+        }
 
-        // if(json.errors != null) {
-        //   errors = "Failed to fetch deck code. Deck code might be invalid or expired."
-        //   return;
-        // }
 
-        // const link = json.deckLink;
-        // await createNewDeck(link, json.craft, json.archetype);
-        // success = true
       } else {
         errors = "Please enter a 4 digits deck code."
       }
@@ -66,5 +61,7 @@
 {/if}
 
 {#if success}
-  <p class="text-green-500 text-sm mt-2 px-3 text-center">Deck has been added successfully.</p>
+  <span class="text-green-500 text-sm mt-2 px-3 text-center">
+    Deck has been added successfully. You can view it <a href={`/deck/view/${deckId}`}>here.</a>
+  </span>
 {/if}
