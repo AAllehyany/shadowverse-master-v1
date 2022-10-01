@@ -14,7 +14,7 @@ const { archetype } = Astro.props;
 ---
 
 <a href={`/archetype/${archetype.slug}`}
-  class="group relative w-full h-48 md:h-full overflow-hidden border-secondary/60 border rounded-lg">
+  class="group relative w-full aspect-square md:h-full overflow-hidden border-secondary/60 border rounded-lg">
   <img src={archetype.imageURL} alt={archetype.slug}
   class="w-full h-full object-cover absolute
   transition duration-300 group-hover:scale-110">
