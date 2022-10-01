@@ -1,5 +1,6 @@
 <script>
   import {createNewDeck} from '../api'
+    import { supabase } from '../supabaseSettings';
   let deckCode;
   let deckName;
   let username;
@@ -14,17 +15,23 @@
     // fetch deck from deck code
     try {
       if(deckCode.length == 4) {
-        const response = await fetch(`/codes/${deckCode}`);
-        const json = await response.json();
+        const res = await supabase.functions.invoke('insert-deck', {
+          body: JSON.stringify({deckCode}),
 
-        if(json.errors != null) {
-          errors = "Failed to fetch deck code. Deck code might be invalid or expired."
-          return;
-        }
+        })
 
-        const link = json.deckLink;
-        await createNewDeck(link, json.craft, json.archetype);
-        success = true
+        console.log(res);
+        // const response = await fetch(`/codes/${deckCode}`);
+        // const json = await response.json();
+
+        // if(json.errors != null) {
+        //   errors = "Failed to fetch deck code. Deck code might be invalid or expired."
+        //   return;
+        // }
+
+        // const link = json.deckLink;
+        // await createNewDeck(link, json.craft, json.archetype);
+        // success = true
       } else {
         errors = "Please enter a 4 digits deck code."
       }

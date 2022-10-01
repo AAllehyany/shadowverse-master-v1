@@ -2,13 +2,14 @@ import {db, auth} from '../firebaseSettings';
 
 import {addDoc, collection, getDocs,limit,serverTimestamp, query, orderBy, where, getDoc, doc} from "firebase/firestore";
 import { ArchetypeData, DeckData } from './interfaces';
+import { supabase } from './supabaseSettings';
 
 const archetypeBucket = `https://s3.ca-central-1.wasabisys.com/shadow-master/archetypes/`
 
 
 export async function createNewDeck(deckLink: string, clan: string, archetype: string) {
 
-  const postedCollection = collection(db, 'posted_decks');
+  const postedCollection = collection(db, 'decks');
   const user = auth.currentUser;
   return await addDoc(postedCollection, {
     deck_link: deckLink,
@@ -22,7 +23,7 @@ export async function createNewDeck(deckLink: string, clan: string, archetype: s
 
 export async function getAllDecks() {
 
-  const postedCollection = collection(db, 'posted_decks');
+  const postedCollection = collection(db, 'decks');
   const allDecks = await getDocs(postedCollection);
 
   let result = [];
@@ -35,7 +36,7 @@ export async function getAllDecks() {
 }
 
 export async function getAllDecksByCraft(craft: string) {
-  const postedCollection = collection(db, 'posted_decks');
+  const postedCollection = collection(db, 'decks');
   const recentDecks = await getDocs(query(postedCollection, where('craft', '==', craft.toLowerCase())));
   let result = [];
 
@@ -47,7 +48,7 @@ export async function getAllDecksByCraft(craft: string) {
 }
 
 export async function getRecentCommunityDecks() {
-  const postedCollection = collection(db, 'posted_decks');
+  const postedCollection = collection(db, 'decks');
   const recentDecks = await getDocs(query(postedCollection, limit(8)));
   let result: DeckData[] = [];
 
@@ -97,23 +98,117 @@ export async function getPopularArchetypes() {
 
 }
 
+export async function getTopArchetypesSupa() {
+  
+  const {data, error} = await supabase.rpc('get_top_archetypes').limit(5);
+  
+  if(error) {
+    console.log(error);
+    return;
+  }
+
+  return data.map(d => ({
+    name: d.archetype_name,
+    slug: d.slug,
+    imageURL: `${archetypeBucket}${d.slug}.png`
+  }));
+}
+
+export async function getTotalArchetypeDecks(archetype_id) {
+  const {data, error} = await supabase.rpc('get_top_archetypes').match({
+    archetype_id: archetype_id
+  }).single();
+
+  console.log(data);
+}
+
+export async function getNewDecks() {
+
+  const {data, error} = await supabase.from('decks')
+    .select(`
+      deck_link,
+      archetype:archetype_id (name, slug)
+    `).order('created_at', {ascending: false}).limit(8);
+
+  return data.map(deck => ({
+    archetype: deck.archetype.name,
+    imageURL: `${archetypeBucket}${deck.archetype.slug}.png`,
+    deckLink: `https://shadowverse-portal.com/deck/${deck.deck_link}`,
+    player: "unkown"
+  }));
+
+  
+}
+
 export async function getArchetypeBySlug(slug: string) {
 
-  const id = slug.toLowerCase().replaceAll('-', '_');
-  const archetypeCollection = collection(db, 'archetypes');
-  const archetypeRef = doc(archetypeCollection, id);
-  const archetypeSnap= await getDoc(archetypeRef);
-  
-  if(!archetypeSnap.exists()) {
+  const {data, error} = await supabase.from('archetypes').select('*').match({
+    slug: slug.toLowerCase()
+  }).single();
+
+  if(error) {
+    console.log(error)
     return null;
   }
 
-  const data = archetypeSnap.data();
+  const totalDecks = await countArchetypeDecks(data.id);
+  const craftDecks = await countCraftDecks(data.craft_id);
+  const percentage = craftDecks > 0 ? totalDecks/craftDecks : 0;
 
-  return {
-    "name": data.name,
+  const result = {
+    id: data.id,
+    slug: data.slug,
+    name: data.name,
+    totalDecks: totalDecks,
     imageURL: `${archetypeBucket}${data.slug}.png`,
-    cards: data.feature_cards,
-    decks: data.decks || 0
+    craftTotal: craftDecks,
+    percentage: Math.round(percentage * 100)
+    
   }
+
+  console.log(result);
+
+  return result;
+}
+
+export async function countArchetypeDecks(archetype_id: number) {
+
+  const {data, error, count} = await supabase.from('decks')
+    .select('id', {count: 'exact'})
+    .match({archetype_id: archetype_id});
+
+    if(error) {
+      console.log(error);
+      return null;
+    }
+
+    return count;
+}
+
+export async function countCraftDecks(craft_id: number) {
+  const {data, error, count} = await supabase.from('decks')
+    .select('id', {count: 'exact'})
+    .match({craft_id: craft_id});
+
+    if(error) {
+      console.log(error);
+      return 0;
+    }
+
+    console.log(data);
+    return count || 0;
+}
+
+export async function viewDeckList(deckid: number) {
+
+  const {data, error} = await supabase
+    .from('deck_cards')
+    .select(`
+      card:card_id (card_name, cost),
+      copies
+    `)
+    .eq('deck_id', deckid);
+
+  if(error) console.log(error);
+  console.log(data);
 }

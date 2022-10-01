@@ -1,0 +1,12 @@
+---
+import { viewDeckList } from "../../../api";
+import Layout from "../../../layouts/Layout.astro"
+const {deckId} = Astro.params;
+
+const archetypeData = await viewDeckList(deckId as number);
+---
+
+<Layout title="Deck View">
+
+  <h1>HELLO</h1>
+</Layout>

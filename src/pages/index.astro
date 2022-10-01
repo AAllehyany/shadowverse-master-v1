@@ -1,12 +1,14 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import {getRecentCommunityDecks, getAllCrafts, getPopularArchetypes} from '../api'
+import {getRecentCommunityDecks, getAllCrafts, getPopularArchetypes, getTopArchetypesSupa, getNewDecks} from '../api'
 import PopularArchetypesSection from '../components/PopularArchetypesSection.astro';
 import RecentDecksSection from '../RecentDecksSection.astro';
 
-const recentDecks = await getRecentCommunityDecks();
+// const recentDecks = await getRecentCommunityDecks();
+const recentDecks = await getNewDecks();
+// const topArchetypes = await ();
 const crafts = await getAllCrafts();
-const popularArchetypes = await getPopularArchetypes();
+const popularArchetypes = await getTopArchetypesSupa();
 ---
 
 <Layout title="Shadowverse Master">
