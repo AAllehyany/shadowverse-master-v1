@@ -15,6 +15,7 @@
     "@astrojs/react": "^1.1.4",
     "@astrojs/svelte": "^1.0.0",
     "@astrojs/tailwind": "^2.0.1",
+    "@fontsource/fira-sans": "^4.5.9",
     "@fontsource/lato": "^4.5.9",
     "@fontsource/merriweather": "^4.5.13",
     "@fontsource/montserrat": "^4.5.12",

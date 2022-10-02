@@ -12,7 +12,9 @@ module.exports = {
 			},
 			fontFamily: {
 				sans: ['Roboto', 'sans-serif'],
-				heading: ['Roboto', 'sans-serif']
+				heading: ['Fira Sans', 'sans-serif'],
+				'oswald': ['Oswald', 'sans-serif'],
+				'merriweather': ['Merriweather', 'sans-serif']
 			}
 		},
 	},
