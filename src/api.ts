@@ -142,7 +142,9 @@ export async function getNewDecks() {
 
 export async function getArchetypeBySlug(slug: string) {
 
-  const {data, error} = await supabase.from('archetypes').select('*').match({
+  const {data, error} = await supabase.from('archetypes').select(`
+    name, id, slug,
+    craft:craft_id (name, id)`).match({
     slug: slug.toLowerCase()
   }).single();
 
@@ -152,21 +154,20 @@ export async function getArchetypeBySlug(slug: string) {
   }
 
   const totalDecks = await countArchetypeDecks(data.id);
-  const craftDecks = await countCraftDecks(data.craft_id);
+  const craftDecks = await countCraftDecks(data.craft.id);
   const percentage = craftDecks > 0 ? totalDecks/craftDecks : 0;
 
   const result = {
     id: data.id,
     slug: data.slug,
     name: data.name,
+    craft: data.craft.name,
     totalDecks: totalDecks,
     imageURL: `${archetypeBucket}${data.slug}.png`,
     craftTotal: craftDecks,
-    percentage: Math.round(percentage * 100)
+    percentage: Math.round(percentage*100)
     
   }
-
-  console.log(result);
 
   return result;
 }
@@ -182,7 +183,7 @@ export async function countArchetypeDecks(archetype_id: number) {
       return null;
     }
 
-    return count;
+    return count || 0;
 }
 
 export async function countCraftDecks(craft_id: number) {
@@ -195,7 +196,6 @@ export async function countCraftDecks(craft_id: number) {
       return 0;
     }
 
-    console.log(data);
     return count || 0;
 }
 
@@ -211,7 +211,31 @@ export async function viewDeckList(deckid: number) {
 
   if(error) console.log(error);
   
-  const result = data.map(d => ({...d, imageLink: `https://shadowverse-portal.com/image/card/phase2/common/L/L_${d.card.id}.jpg`}));
-
+  const result = data.map(d => ({...d, imageLink: `https://svgdb.me/assets/fullart/${d.card.id}0.png`}));
+  
   return result;
+}
+
+export async function getTopArchetypeCards(archetype_id: number) {
+
+  const {data, error} = await supabase.rpc("top_cards", {
+    arc_id: archetype_id
+  }).limit(8);
+
+  if(error) console.log(error);
+
+  console.log(data);
+  return data;
+}
+
+export async function getSampleArchetypeList(archetype_id: number) {
+
+  const {data, error} = await supabase.from('decks')
+    .select('id').eq('archetype_id', archetype_id).order('created_at', { ascending: false})
+    .limit(1).single();
+
+  if(error) console.log(error);
+
+
+  return viewDeckList(data.id);
 }
