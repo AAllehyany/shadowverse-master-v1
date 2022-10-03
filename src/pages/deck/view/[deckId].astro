@@ -12,9 +12,9 @@ const deckData = await viewDeckList(deckId as number);
 
     <h1 class="text-white">Deck Display.</h1>
 
-    <div class="grid grid-cols-1 md:grid-cols-4 gap-1 p-3 ">
+    <div class="grid grid-cols-1 md:grid-cols-8 gap-1 p-3 ">
       {deckData.map(d => (
-        <img src={d.imageLink} class="w-full object-cover h-full" />
+        <img src={d.imageLink} class="w-full object-cover h-full rounded-lg" />
       ))}
     </div>
   </div>
