@@ -211,8 +211,8 @@ export async function viewDeckList(deckid: number) {
 
   if(error) console.log(error);
   
-  const result = data.map(d => ({...d, imageLink: `https://svgdb.me/assets/fullart/${d.card.id}0.png`}));
-  
+  const result = data.map(d => ({...d, imageLink: `https://ik.imagekit.io/svmaster/tr:w-150/cards/${d.card.id}.png`}));
+
   return result;
 }
 
