@@ -128,7 +128,7 @@ export async function getNewDecks() {
     .select(`
       deck_link,
       archetype:archetype_id (name, slug)
-    `).order('created_at', {ascending: false}).limit(8);
+    `).order('created_at', {ascending: false}).limit(12);
 
   return data.map(deck => ({
     archetype: deck.archetype.name,
