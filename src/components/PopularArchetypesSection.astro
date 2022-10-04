@@ -28,4 +28,16 @@ const otherPopular = archetypes.slice(1);
     <LargePopularArchetype archetype={mostPopular} />
     {otherPopular.map(archetype => <PopularArchetype archetype={archetype} />)}
   </div>
+
+  <div class="w-full flex justify-end items-center mt-4">
+    <a href="/archetypes" 
+    class="flex items-center bg-secondary hover:bg-secondary/60 px-3 py-2 rounded-md text-primary transition duration-300 text-sm font-heading">
+    View All Archetypes
+    <span class="ml-1">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3" />
+      </svg>      
+    </span>
+  </a>
+  </div>
 </div>
