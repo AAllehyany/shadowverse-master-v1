@@ -1,0 +1,27 @@
+---
+interface ArchetypeData {
+  name: string;
+  imageURL: string;
+  slug: string;
+}
+
+export interface Props{
+
+  archetype: ArchetypeData
+}
+
+const { archetype } = Astro.props;
+---
+
+<a href={`/archetype/${archetype.slug}`}
+  class="group w-full relative h-40 overflow-hidden border-secondary/60 -border rounded-lg">
+  <img src={archetype.imageURL} alt={archetype.slug}
+  class="w-full h-full object-cover absolute
+  transition duration-700 group-hover:scale-105">
+  <div class="flex w-full items-end justify-center absolute bottom-1 right-1 ">
+    <div class="py-1 px-2 rounded-lg flex items-center bg-black justify-center">
+      <h1 class="text-secondary font-heading font-bold  capitalize text-md px-3 truncate hover:underline">{archetype.name}</h1>
+    </div>
+  </div>
+</a>
+
