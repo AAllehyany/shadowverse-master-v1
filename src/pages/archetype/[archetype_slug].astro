@@ -5,73 +5,90 @@ const {archetype_slug} = Astro.params;
 
 const archetypeData = await getArchetypeBySlug(archetype_slug as string);
 const topCards = await getTopArchetypeCards(archetypeData.id);
-const sampleList = await getSampleArchetypeList(archetypeData.id);
-console.log(sampleList);
+const sampleLists = await getSampleArchetypeList(archetypeData.id);
 ---
 
 
 <Layout title="Archetype Breakdown">
   <div class="w-full max-w-screen-lg mx-auto mt-20 px-5 mt-10">
     {archetypeData && 
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-1 place-items-start">
-        <div class="grid grid-cols-2 gap-1">
-          <h1 class="text-white capitalize col-span-2 text-xl flex items-center mb-4 font-heading">
-            <span class="text-accent mr-2">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5">
-                <path fill-rule="evenodd" d="M2.25 13.5a8.25 8.25 0 018.25-8.25.75.75 0 01.75.75v6.75H18a.75.75 0 01.75.75 8.25 8.25 0 01-16.5 0z" clip-rule="evenodd" />
-                <path fill-rule="evenodd" d="M12.75 3a.75.75 0 01.75-.75 8.25 8.25 0 018.25 8.25.75.75 0 01-.75.75h-7.5a.75.75 0 01-.75-.75V3z" clip-rule="evenodd" />
-              </svg>                                          
-            </span>
-            {archetypeData.name} Breakdown
-          </h1>
-          <div class="w-full h-48 col-span-2 rounded-lg overflow-hidden">
-            <img src={archetypeData.imageURL} alt={archetypeData.name} 
-            class="w-full object-cover h-full">
-          </div>
-          <div class="bg-secondary flex items-center justify-center w-full h-24 rounded-lg">
-            <div class="text-center">
-              <p class="text-primary font-bold font-oswald text-5xl">{archetypeData.totalDecks}</p>
-              <p class="text-primary font-bold uppercase text-xs mt-2">total decks</p>
-            </div>
-          </div>
-          <div class="bg-secondary flex items-center justify-center w-full h-24 rounded-lg">
-            <div class="text-center">
-              <p class="text-primary font-bold font-oswald text-5xl">{archetypeData.percentage}
-                <span class="text-sm">%</span></p>
-              <p class="text-primary font-bold uppercase text-xs mt-2">of {archetypeData.craft} decks</p>
-            </div>
-          </div>
-          <div class="col-span-2">
-            <h3 class="mt-5 text-white font-heading">Top Cards Played</h3>
-            <div class="grid grid-cols-4 gap-2 mt-2">
-              {topCards.map(c => <img src={`https://ik.imagekit.io/svmaster/cards/tr:w-150/${c.id}.png`} class="w-full h-full aspect-square object-cover rounded-lg" />)}
-            </div>
-          </div>
+      <h1 class="text-white capitalize text-xl flex items-center mb-4 font-heading">
+        <span class="text-accent mr-2">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5">
+            <path fill-rule="evenodd" d="M2.25 13.5a8.25 8.25 0 018.25-8.25.75.75 0 01.75.75v6.75H18a.75.75 0 01.75.75 8.25 8.25 0 01-16.5 0z" clip-rule="evenodd" />
+            <path fill-rule="evenodd" d="M12.75 3a.75.75 0 01.75-.75 8.25 8.25 0 018.25 8.25.75.75 0 01-.75.75h-7.5a.75.75 0 01-.75-.75V3z" clip-rule="evenodd" />
+          </svg>                                          
+        </span>
+        {archetypeData.name} Top Cards
+      </h1>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-2 w-full">
+        <div class="w-full ">
+          <img src={archetypeData.imageURL} alt={archetypeData.name} 
+          class="w-full object-cover rounded-lg h-48 md:row-span-2">
         </div>
-        <div class="mt-3 col-span-2 w-full md:col-span-1 md:mt-0 md:px-5">
-          <h1 class="text-white capitalize text-xl flex items-center mb-4 font-heading">
-            <span class="text-accent mr-2">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
-                <path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zM12 8.25a.75.75 0 01.75.75v3.75a.75.75 0 01-1.5 0V9a.75.75 0 01.75-.75zm0 8.25a.75.75 0 100-1.5.75.75 0 000 1.5z" clip-rule="evenodd" />
-              </svg>                       
-            </span>
-            {archetypeData.name} Sample List
-          </h1>
-
-          <div class="w-full">
-            {sampleList.map(card => (
-              <div class="flex w-full h-10 items-center mt-1 border-secondary border rounded-lg overflow-hidden">
-                <img src={card.imageLink} class="w-10 h-10 object-cover">
-                <h2 class="font-bold text-secondary text-sm ml-2">{card.card.card_name} x{card.copies}</h2> 
-              </div>
-            ))}
-          </div>
+        <div class="grid grid-cols-5 gap-2 mt-2 md:mt-0 md:grid-cols-5">
+          {topCards.map(card => (
+            <img src={`https://ik.imagekit.io/svmaster/cards/tr:w-150/${card.id}.png`}
+            class="rounded-lg w-full object-cover aspect-square h-full">
+          ))}
         </div>
       </div>
 
+      <h1 class="text-white capitalize text-xl flex items-center mb-4 font-heading mt-10 md:mt-20">
+        <span class="text-accent mr-2">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5">
+            <path fill-rule="evenodd" d="M2.25 13.5a8.25 8.25 0 018.25-8.25.75.75 0 01.75.75v6.75H18a.75.75 0 01.75.75 8.25 8.25 0 01-16.5 0z" clip-rule="evenodd" />
+            <path fill-rule="evenodd" d="M12.75 3a.75.75 0 01.75-.75 8.25 8.25 0 018.25 8.25.75.75 0 01-.75.75h-7.5a.75.75 0 01-.75-.75V3z" clip-rule="evenodd" />
+          </svg>                                          
+        </span>
+        {archetypeData.name} Sample Deck Lists
+      </h1>
+
+      <div class="grid grid-cols-1 gap-4 md:grid-cols-3">
+        {sampleLists.map(list =>
+          <div class='w-full'>
+            <div class="w-full border-secondary border rounded-t-md">
+              {list.list.map(card => (
+                <div class="border-b border-secondary flex items-center justify-between">
+                  <div class="flex items-center p-1">
+                    <img src={card.imageLink} alt="" 
+                    class="w-[45px] aspect-square rounded-lg">
+                    <p class="ml-2 text-secondary font-heading text-sm">{card.card.card_name}</p>
+                  </div>
+                  <span class="p-1 px-3 font-bold text-md font-heading text-secondary">x{card.copies}</span> 
+                </div>
+              ))}
+            </div>
+            <a href={`https://shadowverse-portal.com/deck/${list.deckLink}`} 
+            class="w-full bg-secondary p-3 text-center font-bold text-sm text-primary hover:underline block">Copy Deck</a>
+          
+          </div>)}
+      </div>
       
     }
 
     {!archetypeData && <span class="text-white">The archetype does not exist.</span>}
   </div>
 </Layout>
+
+<!--
+  <div class="bg-secondary/90 flex items-center justify-center w-full h-24 rounded-lg">
+            <div class="text-center">
+              <p class="text-primary font-bold font-oswald text-3xl">{archetypeData.totalDecks}</p>
+              <p class="text-primary font-bold uppercase font-heading text-xs mt-2">total decks</p>
+            </div>
+          </div>
+          <div class="bg-green-700/90 flex items-center justify-center w-full h-24 rounded-lg">
+            <div class="text-center">
+              <p class="text-primary font-bold font-oswald text-3xl">{archetypeData.percentage}
+                <span class="text-sm">%</span></p>
+              <p class="text-primary font-bold uppercase font-heading text-xs mt-2">of {archetypeData.craft}</p>
+            </div>
+          </div>
+          <div class="bg-purple-300/90 flex items-center justify-center w-full h-24 rounded-lg">
+            <div class="text-center">
+              <p class="text-primary font-bold font-oswald text-3xl">COMBO</p>
+              <p class="text-primary font-bold uppercase font-heading text-xs mt-2">deck type</p>
+            </div>
+          </div>
+ -->
