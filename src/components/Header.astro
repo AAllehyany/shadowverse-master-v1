@@ -5,22 +5,26 @@ import Login from './Login.svelte';
 <div class="w-full py-5 px-2 bg-black/30">
   <div class="w-full mx-auto max-w-screen-lg flex items-center justify-between">
     <a href="/" class="text-secondary text-lg font-bold">Shadowverse Master</a>
-    <!-- <div class="flex items-center">
-      <a href='/deck/submit' class="transition duration-300 
+    <div class="flex items-center">
+      <!-- <a href='/deck/submit' class="transition duration-300 
       mr-1 py-2 px-2  text-secondary rounded-md
       hover:bg-accent/60 flex items-center h-6">
-      <span class="mr-1 text-accent">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
-          <path fill-rule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zM12.75 9a.75.75 0 00-1.5 0v2.25H9a.75.75 0 000 1.5h2.25V15a.75.75 0 001.5 0v-2.25H15a.75.75 0 000-1.5h-2.25V9z" clip-rule="evenodd" />
-        </svg>
-      </span>
+        <span class="mr-1 text-accent">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+            <path fill-rule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zM12.75 9a.75.75 0 00-1.5 0v2.25H9a.75.75 0 000 1.5h2.25V15a.75.75 0 001.5 0v-2.25H15a.75.75 0 000-1.5h-2.25V9z" clip-rule="evenodd" />
+          </svg>
+        </span>
+        
+        <div class="relative w-24 h-full">
+          <span class="text-[#3eb5e5] block filter blur-[4px] font-extrabold absolute -top-2">Share a Deck</span>
+          <span class="text-white block absolute -top-2">Share a Deck</span>
+        </div>
+      </a> -->
+      <a href="/archetypes" class="transition duration-300 
+      mr-2 px-2 text-secondary hover:text-secondary/70">Archetypes</a>
+      <a href="/archetypes" class="transition duration-300 mr-2 px-2 text-secondary hover:text-secondary/70">GM Decks</a>
       
-      <div class="relative w-24 h-full">
-        <span class="text-[#3eb5e5] block filter blur-[4px] font-extrabold absolute -top-2">Share a Deck</span>
-        <span class="text-white block absolute -top-2">Share a Deck</span>
-      </div>
-    </a>
       <Login client:load />
-    </div> -->
+    </div>
   </div>
 </div>
