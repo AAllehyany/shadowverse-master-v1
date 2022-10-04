@@ -199,7 +199,7 @@ export async function countCraftDecks(craft_id: number) {
     return count || 0;
 }
 
-export async function viewDeckList(deckid: number) {
+export async function viewDeckList(deckid: number, deckLink = "") {
 
   const {data, error} = await supabase
     .from('deck_cards')
@@ -213,29 +213,27 @@ export async function viewDeckList(deckid: number) {
   
   const result = data.map(d => ({...d, imageLink: `https://ik.imagekit.io/svmaster/tr:w-150/cards/${d.card.id}.png`}));
 
-  return result;
+  return {deckLink, list: result};
 }
 
 export async function getTopArchetypeCards(archetype_id: number) {
 
   const {data, error} = await supabase.rpc("top_cards", {
     arc_id: archetype_id
-  }).limit(8);
+  }).limit(10);
 
   if(error) console.log(error);
 
-  console.log(data);
   return data;
 }
 
 export async function getSampleArchetypeList(archetype_id: number) {
 
   const {data, error} = await supabase.from('decks')
-    .select('id').eq('archetype_id', archetype_id).order('created_at', { ascending: false})
-    .limit(1).single();
+    .select('id, deck_link').eq('archetype_id', archetype_id).order('created_at', { ascending: false})
+    .limit(3);
 
   if(error) console.log(error);
 
-
-  return viewDeckList(data.id);
+  return Promise.all(data.map(d => viewDeckList(d.id, d.deck_link)))
 }
