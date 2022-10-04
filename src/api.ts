@@ -114,6 +114,22 @@ export async function getTopArchetypesSupa() {
   }));
 }
 
+export async function getAllArchetypes() {
+  
+  const {data, error} = await supabase.rpc('get_top_archetypes');
+  
+  if(error) {
+    console.log(error);
+    return;
+  }
+
+  return data.map(d => ({
+    name: d.archetype_name,
+    slug: d.slug,
+    imageURL: `${archetypeBucket}${d.slug}.png`
+  }));
+}
+
 export async function getTotalArchetypeDecks(archetype_id) {
   const {data, error} = await supabase.rpc('get_top_archetypes').match({
     archetype_id: archetype_id
@@ -226,6 +242,7 @@ export async function getTopArchetypeCards(archetype_id: number) {
 
   return data;
 }
+
 
 export async function getSampleArchetypeList(archetype_id: number) {
 
