@@ -1,6 +1,8 @@
 ---
 import { getArchetypeBySlug, getSampleArchetypeList, getTopArchetypeCards } from "../../api";
 import Layout from "../../layouts/Layout.astro"
+import ClickableCardThumbnail from '../../components/cards/ClickableCardThumbnail.svelte';
+import CardStatsModal from '../../components/cards/CardStatsModal.svelte';
 const {archetype_slug} = Astro.params;
 
 const archetypeData = await getArchetypeBySlug(archetype_slug as string);
@@ -8,7 +10,7 @@ const topCards = await getTopArchetypeCards(archetypeData.id);
 const sampleLists = await getSampleArchetypeList(archetypeData.id);
 ---
 
-
+<CardStatsModal client:load />
 <Layout title="Archetype Breakdown">
   <div class="w-full max-w-screen-lg mx-auto mt-20 px-5 mt-10">
     {archetypeData && 
@@ -28,8 +30,7 @@ const sampleLists = await getSampleArchetypeList(archetypeData.id);
         </div>
         <div class="grid grid-cols-5 gap-2 mt-2 md:mt-0 md:grid-cols-5">
           {topCards.map(card => (
-            <img src={`https://ik.imagekit.io/svmaster/cards/tr:w-150/${card.id}.png`}
-            class="rounded-lg w-full object-cover aspect-square h-full">
+            <ClickableCardThumbnail card={card} client:load />
           ))}
         </div>
       </div>
