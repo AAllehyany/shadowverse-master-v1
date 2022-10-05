@@ -237,10 +237,13 @@ export async function getTopArchetypeCards(archetype_id: number) {
   const {data, error} = await supabase.rpc("top_cards", {
     arc_id: archetype_id
   }).limit(10);
-
+  const deckCount = await countArchetypeDecks(archetype_id);
   if(error) console.log(error);
 
-  return data;
+  const result = data.map(d => ({...d, average: Math.ceil(parseInt(d.total) / deckCount)}));
+
+  console.log(result);
+  return result;
 }
 
 
