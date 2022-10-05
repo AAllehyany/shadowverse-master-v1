@@ -218,17 +218,17 @@ export async function countCraftDecks(craft_id: number) {
 export async function viewDeckList(deckid: number, deckLink = "") {
 
   const {data, error} = await supabase
-    .from('deck_cards')
-    .select(`
-      card:card_id (card_name, cost, id),
-      copies
-    `)
-    .eq('deck_id', deckid);
+    .from('deck_lists_view')
+    .select('*')
+    .eq('deck_id', deckid)
+    .order('cost')
+    .order('copies', {ascending: false})
+    .order('name');
 
   if(error) console.log(error);
   
-  const result = data.map(d => ({...d, imageLink: `https://ik.imagekit.io/svmaster/tr:w-150/cards/${d.card.id}.png`}));
-
+  const result = data.map(d => ({...d, imageLink: `https://ik.imagekit.io/svmaster/tr:w-150/cards/${d.card_id}.png`}));
+  console.log(data)
   return {deckLink, list: result};
 }
 

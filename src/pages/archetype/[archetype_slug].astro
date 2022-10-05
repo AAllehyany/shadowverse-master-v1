@@ -54,7 +54,7 @@ const sampleLists = await getSampleArchetypeList(archetypeData.id);
                   <div class="flex items-center p-1">
                     <img src={card.imageLink} alt="" 
                     class="w-[45px] aspect-square rounded-lg">
-                    <p class="ml-2 text-secondary font-heading text-sm">{card.card.card_name}</p>
+                    <a href={`https://shadowverse-portal.com/card/${card.card_id}`} target="_blank" class="ml-2 text-secondary font-heading text-sm underline hover:text-secondary/80 cursor-pointer">{card.name}</a>
                   </div>
                   <span class="p-1 px-3 font-bold text-md font-heading text-secondary">x{card.copies}</span> 
                 </div>
