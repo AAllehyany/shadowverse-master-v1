@@ -2,6 +2,8 @@
   import modal from '../../modalStore'
 
   const getImage = id => (`https://ik.imagekit.io/svmaster/tr:w-200/cards/${id}.png`)
+  const getPortalImage = id => (`https://shadowverse-portal.com/image/card/phase2/common/C/C_${id}.png`)
+  const getPortalLink = id => (`https://shadowverse-portal.com/card/${id}`)
 
   function hideModal() {
     modal.set({open: false, card: null})
@@ -11,8 +13,8 @@
 {#if $modal && $modal.open}
 <div class="fixed w-full h-full bg-black/90 z-50" on:click|stopPropagation={hideModal}>
   <div id="modal">
-    <img src={getImage($modal.card.id)} class="rounded-lg w-48"/>
-    <h2 class="text-md font-heading text-primary mt-3 font-bold">{$modal.card.name}</h2>
+    <img src={getPortalImage($modal.card.id)} class="rounded-lg w-48"/>
+    <a target="_blank" href={getPortalLink($modal.card.id)} class="underline hover:text-primary/70 text-md font-heading text-primary mt-3 font-bold">{$modal.card.name}</a>
 
     <p class="text-sm font-heading text-primary mt-5 font-bold">Usage Breakdown:</p>
     <div class="flex items-center mt-2">
