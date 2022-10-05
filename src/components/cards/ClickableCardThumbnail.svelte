@@ -11,7 +11,7 @@
   }
 </script>
 
-<div class="relative w-full h-full" on:click={handleClick}>
+<div class="relative w-full aspect-square h-full" on:click={handleClick}>
 <img src={`https://ik.imagekit.io/svmaster/cards/tr:w-150/${card.id}.png`} 
 class="rounded-lg w-full object-cover aspect-square h-full absolute" alt={card.id} >
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-8 h-8 text-black/70 hover:text-black cursor-pointer absolute bottom-px right-px">
