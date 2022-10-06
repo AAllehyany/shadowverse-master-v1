@@ -5,8 +5,8 @@ import RecentDecksSection from "../../RecentDecksSection.astro";
 
 const {page} = Astro.params;
 
-const prev = (parseInt(page) as number) - 1;
-const next = (parseInt(page) as number) + 1;
+const prev = parseInt(page as string) - 1;
+const next = parseInt(page as string) + 1;
 
 console.log(prev);
 
