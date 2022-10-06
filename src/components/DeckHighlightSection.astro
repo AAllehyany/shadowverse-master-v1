@@ -1,7 +1,11 @@
 ---
+export interface Props {
+  deck: any
+}
 import { getDeckHighlight } from "../api";
 
-const deck = await getDeckHighlight();
+const {deck} = Astro.props;
+// const deck = await getDeckHighlight();
 ---
 
 <div class="w-full">
@@ -13,10 +17,13 @@ const deck = await getDeckHighlight();
       </svg>                      
     </span>
     Deck Highlight
+    <span class="px-2 font-sans font-normal italic text-md text-secondary/80">({deck.archetype.archetype_name})</span>
   </h1>
 
+  
+
   <div class="w-full border border-secondary rounded-t-md p-2 mt-4 grid grid-cols-3 gap-3 md:grid-cols-6">
-    {deck.list.map(card => (
+    {deck.deckList.list.map(card => (
       <a href={`https://shadowverse-portal.com/card/${card.card_id}`} target="_blank" class="relative w-full aspect-square">
         <img src={card.imageLink} alt="" class="w-full rounded-lg absolute aspect-square object-cover">
         <div class="flex items-center justify-end w-full absolute bottom-0">
@@ -26,7 +33,7 @@ const deck = await getDeckHighlight();
     ))}
   </div>
 
-  <a href={`https://shadowverse-portal.com/deck/${deck.deckLink}`} 
+  <a href={`https://shadowverse-portal.com/deck/${deck.deckList.deckLink}`} 
     class="rounded-b-md w-full bg-secondary p-3 text-center font-bold text-sm text-primary hover:underline block">Copy Deck</a>
           
 </div>
