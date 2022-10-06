@@ -22,12 +22,12 @@ const {deck} = Astro.props;
 
   
 
-  <div class="w-full border border-secondary rounded-t-md p-2 mt-4 grid grid-cols-3 gap-3 md:grid-cols-6">
+  <div class="w-full border border-secondary rounded-t-md p-2 mt-4 grid grid-cols-4 gap-3 md:grid-cols-6">
     {deck.deckList.list.map(card => (
-      <a href={`https://shadowverse-portal.com/card/${card.card_id}`} target="_blank" class="relative w-full h-[195px]">
-        <img src={card.imageLink} alt="" class="w-[150px] rounded-lg absolute h-[195px] object-cover">
+      <a href={`https://shadowverse-portal.com/card/${card.card_id}`} target="_blank" class="relative w-[80px] h-[104px] md:w-[150px] md:h-[195px]">
+        <img src={card.imageLink} alt="" class="w-[80xp] h-[104px] md:w-[150px] rounded-lg absolute md:h-[195px] object-cover">
         <div class="flex items-center justify-center w-full absolute bottom-0">
-          <span class="bg-secondary/80 flex items-center w-8 h-8 font-bold justify-center text-black rounded-full">{card.copies}</span>
+          <span class="bg-secondary/80 flex items-center w-6 h-6 md:w-8 md:h-8 font-bold justify-center text-black rounded-full">{card.copies}</span>
         </div>
       </a>
     ))}
