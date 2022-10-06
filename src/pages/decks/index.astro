@@ -9,5 +9,8 @@ const decks = await getDecks(0);
 <Layout title="All Decks">
   <div class="w-full max-w-screen-lg mx-auto mt-10 px-5 mb-10">
     <RecentDecksSection decks={decks} />
+    <div class="w-full flex items-center mt-5 justify-end">
+      <a href="/decks/1" class="bg-secondary px-3 py-1 font-primary hover:bg-secondary/80 rounded-md ">Next </a>
+    </div>
   </div>
 </Layout>
