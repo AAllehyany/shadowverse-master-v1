@@ -66,11 +66,11 @@ export async function getDecks(page = 0) {
 }
 
 export async function getTopArchetypeId() {
-  const {data, error} = await supabase.rpc('get_top_archetypes').select('archetype_id').limit(1).single();
+  const {data, error} = await supabase.rpc('get_top_archetypes').select('*  ').limit(1).single();
 
   if(error) console.log(error);
 
-  return data.archetype_id;
+  return data;
 }
 
 export async function getDeckHighlight() {
@@ -78,11 +78,11 @@ export async function getDeckHighlight() {
   const topArchetype = await getTopArchetypeId();
 
   const {data, error} = await supabase.from('decks').select('id, deck_link').order('created_at', {ascending: false})
-      .eq('archetype_id', topArchetype).limit(1).single();
+      .eq('archetype_id', topArchetype.archetype_id).limit(1).single();
 
   const deckList = await viewDeckList(data.id, data.deck_link);
 
-  return deckList;
+  return {archetype: topArchetype, deckList};
 }
 
 export const getPagination = (page, size) => {
