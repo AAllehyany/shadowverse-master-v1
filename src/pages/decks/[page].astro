@@ -1,0 +1,15 @@
+---
+import { getDecks } from "../../api";
+import Layout from "../../layouts/Layout.astro";
+import RecentDecksSection from "../../RecentDecksSection.astro";
+
+const {page} = Astro.params;
+
+const decks = await getDecks(page as number);
+---
+
+<Layout title="All Decks">
+  <div class="w-full max-w-screen-lg mx-auto mt-10 px-5 mb-10">
+    <RecentDecksSection decks={decks} />
+  </div>
+</Layout>

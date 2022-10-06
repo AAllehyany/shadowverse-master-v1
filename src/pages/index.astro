@@ -1,11 +1,11 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import {getRecentCommunityDecks, getAllCrafts, getPopularArchetypes, getTopArchetypesSupa, getNewDecks} from '../api'
+import {getRecentCommunityDecks, getAllCrafts, getPopularArchetypes, getTopArchetypesSupa} from '../api'
 import PopularArchetypesSection from '../components/PopularArchetypesSection.astro';
 import RecentDecksSection from '../RecentDecksSection.astro';
 
 // const recentDecks = await getRecentCommunityDecks();
-const recentDecks = await getNewDecks();
+// const recentDecks = await getNewDecks();
 // const topArchetypes = await ();
 const crafts = await getAllCrafts();
 const popularArchetypes = await getTopArchetypesSupa();
@@ -15,6 +15,6 @@ const popularArchetypes = await getTopArchetypesSupa();
 	<div class="w-full max-w-screen-lg mx-auto mt-10 px-5 mb-10">
 		<PopularArchetypesSection archetypes={popularArchetypes} />
 
-		<RecentDecksSection decks={recentDecks}/>
+		<!-- <RecentDecksSection decks={recentDecks}/> -->
 	</div> 
 </Layout>

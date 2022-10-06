@@ -138,13 +138,14 @@ export async function getTotalArchetypeDecks(archetype_id) {
   console.log(data);
 }
 
-export async function getNewDecks() {
+export async function getDecks(page = 0) {
 
+  const range = getPagination(page, 24);
   const {data, error} = await supabase.from('decks')
     .select(`
       deck_link,
       archetype:archetype_id (name, slug)
-    `).order('created_at', {ascending: false}).limit(12);
+    `).order('created_at', {ascending: false}).range(range.from, range.to);
 
   return data.map(deck => ({
     archetype: deck.archetype.name,
@@ -154,6 +155,14 @@ export async function getNewDecks() {
   }));
 
   
+}
+
+export const getPagination = (page, size) => {
+  const limit = size ? +size : 3
+  const from = page ? page * limit : 0
+  const to = page ? from + size - 1 : size - 1
+
+  return { from, to }
 }
 
 export async function getArchetypeBySlug(slug: string) {

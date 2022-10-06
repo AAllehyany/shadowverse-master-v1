@@ -1,0 +1,13 @@
+---
+import { getDecks } from "../../api";
+import Layout from "../../layouts/Layout.astro";
+import RecentDecksSection from "../../RecentDecksSection.astro";
+
+const decks = await getDecks(0);
+---
+
+<Layout title="All Decks">
+  <div class="w-full max-w-screen-lg mx-auto mt-10 px-5 mb-10">
+    <RecentDecksSection decks={decks} />
+  </div>
+</Layout>
