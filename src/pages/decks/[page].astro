@@ -8,8 +8,6 @@ const {page} = Astro.params;
 const prev = parseInt(page as string) - 1;
 const next = parseInt(page as string) + 1;
 
-console.log(prev);
-
 const decks = await getDecks(page as number);
 ---
 

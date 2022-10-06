@@ -55,6 +55,7 @@ export async function getDecks(page = 0) {
       archetype:archetype_id (name, slug)
     `).order('created_at', {ascending: false}).range(range.from, range.to);
 
+  if(data == null) return [];
   return data.map(deck => ({
     archetype: deck.archetype.name,
     imageURL: `${archetypeBucket}${deck.archetype.slug}.png`,
@@ -76,6 +77,7 @@ export async function getTopArchetypeId() {
 export async function getDeckHighlight() {
 
   const topArchetype = await getTopArchetypeId();
+  if(topArchetype == null) return null;
 
   const {data, error} = await supabase.from('decks').select('id, deck_link').order('created_at', {ascending: false})
       .eq('archetype_id', topArchetype.archetype_id).limit(1).single();
@@ -164,7 +166,7 @@ export async function viewDeckList(deckid: number, deckLink = "") {
 
   if(error) console.log(error);
   
-  const result = data.map(d => ({...d, imageLink: `https://ik.imagekit.io/svmaster/tr:w-150/cards/${d.card_id}.png`}));
+  const result = data.map(d => ({...d, imageLink: `https://ik.imagekit.io/svmaster/tr:w-150/card_frames/${d.card_id}.png`}));
   
   return {deckLink, list: result};
 }
