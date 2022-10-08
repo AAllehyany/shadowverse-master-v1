@@ -1,7 +1,9 @@
 ---
 import Login from './Login.svelte';
+import SearchButton from './search/SearchButton.svelte'
+import SearchModal from './search/SearchModal.svelte'
 ---
-
+<SearchModal client:load />
 <div class="w-full py-5 px-2 bg-black/30">
   <div class="w-full mx-auto max-w-screen-lg flex items-center justify-between">
     <a href="/" class="text-secondary text-lg font-bold">
@@ -25,6 +27,7 @@ import Login from './Login.svelte';
       <a href="/archetypes" class="transition duration-300 
       mr-2 px-2 text-secondary hover:text-secondary/70">Archetypes</a>
       <a href="/decks" class="transition duration-300 mr-2 px-2 text-secondary hover:text-secondary/70">Decks</a>
+      <SearchButton client:load />
       
       <!-- <Login client:load /> -->
     </div>

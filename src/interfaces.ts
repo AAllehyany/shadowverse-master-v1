@@ -5,6 +5,13 @@ export interface ArchetypeData {
   archetype_id: number;
 }
 
+export interface SearchResultDeck {
+  slug: string;
+  link: string;
+  cardId: number;
+  imageURL: string;
+}
+
 export interface ArchetypeBreakdown {
   name: string;
   imageURL: string;

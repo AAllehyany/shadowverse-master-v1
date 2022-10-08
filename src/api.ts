@@ -197,3 +197,14 @@ export async function getSampleArchetypeList(archetype_id: number) {
 
   return Promise.all(data.map(d => viewDeckList(d.id, d.deck_link)))
 }
+
+export async function getDecksByCard(cardName: string) {
+
+  const {data, error} = await supabase.from('deck_details')
+  .select()
+  .ilike('name', `%${cardName}%`)
+
+  if(error) console.log(error);
+
+  return data.map(d => ({slug: d.slug, link: d.deck_link, cardId: d.card_id, imageURL: `${archetypeBucket}${d.slug}.png`}));
+}
