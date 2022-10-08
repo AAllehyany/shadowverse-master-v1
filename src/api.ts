@@ -3,7 +3,7 @@ import {db, auth} from '../firebaseSettings';
 import { ArchetypeData, DeckData } from './interfaces';
 import { supabase } from './supabaseSettings';
 
-const archetypeBucket = `https://s3.ca-central-1.wasabisys.com/shadow-master/archetypes/`
+const archetypeBucket = `https://ik.imagekit.io/svmaster/assets/`
 
 
 export async function getTopArchetypesSupa(n = 5) {
@@ -18,7 +18,8 @@ export async function getTopArchetypesSupa(n = 5) {
   return data.map(d => ({
     name: d.archetype_name,
     slug: d.slug,
-    imageURL: `${archetypeBucket}${d.slug}.png`
+    imageURL: `${archetypeBucket}${d.slug}.png`,
+    archetype_id: d.archetype_id
   }));
 }
 
@@ -34,7 +35,8 @@ export async function getAllArchetypes() {
   return data.map(d => ({
     name: d.archetype_name,
     slug: d.slug,
-    imageURL: `${archetypeBucket}${d.slug}.png`
+    imageURL: `${archetypeBucket}${d.slug}.png`,
+    archetype_id: d.archetype_id
   }));
 }
 
@@ -181,7 +183,6 @@ export async function getTopArchetypeCards(archetype_id: number) {
 
   const result = data.map(d => ({...d, average: Math.ceil(parseInt(d.total) / deckCount)}));
 
-  console.log(result);
   return result;
 }
 
