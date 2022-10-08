@@ -1,5 +1,5 @@
 ---
-import { getDecks } from "../../api";
+import { getAllArchetypes, getDecks } from "../../api";
 import Layout from "../../layouts/Layout.astro";
 import RecentDecksSection from "../../RecentDecksSection.astro";
 
@@ -7,13 +7,13 @@ const {page} = Astro.params;
 
 const prev = parseInt(page as string) - 1;
 const next = parseInt(page as string) + 1;
-
+const archetypes = getAllArchetypes();
 const decks = await getDecks(page as number);
 ---
 
 <Layout title="All Decks">
   <div class="w-full max-w-screen-lg mx-auto mt-10 px-5 mb-10">
-    <RecentDecksSection decks={decks} />
+    <RecentDecksSection decks={decks} archetypes={archetypes}/>
     <div class="w-full flex items-center mt-5 justify-between">
       <a href={"/decks/" + prev} class="bg-secondary px-3 py-1 font-primary hover:bg-secondary/80 rounded-md ">Prev </a>
       <a href={"/decks/" + next} class="bg-secondary px-3 py-1 font-primary hover:bg-secondary/80 rounded-md ">Next </a>
