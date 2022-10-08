@@ -7,7 +7,7 @@ const {page} = Astro.params;
 
 const prev = parseInt(page as string) - 1;
 const next = parseInt(page as string) + 1;
-const archetypes = getAllArchetypes();
+const archetypes = await getAllArchetypes();
 const decks = await getDecks(page as number);
 ---
 
