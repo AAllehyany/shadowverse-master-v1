@@ -55,7 +55,7 @@ export async function getDecks(page = 0) {
     .select(`
       deck_link,
       archetype:archetype_id (name, slug)
-    `).order('created_at', {ascending: false}).range(range.from, range.to);
+    `).eq('format', 3).order('created_at', {ascending: false}).range(range.from, range.to);
 
   if(data == null) return [];
   return data.map(deck => ({
@@ -200,7 +200,7 @@ export async function getSampleArchetypeList(archetype_id: number) {
 
 export async function getDecksByCard(cardName: string) {
 
-  const {data, error} = await supabase.from('deck_details')
+  const {data, error} = await supabase.from('rotation_decks')
   .select()
   .ilike('name', `%${cardName}%`)
 
