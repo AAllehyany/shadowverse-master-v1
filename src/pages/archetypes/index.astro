@@ -8,17 +8,17 @@ const archetypes = await getAllArchetypes();
 
 <Layout title="Format Archetypes">
   <div class="w-full max-w-screen-lg mx-auto mt-20">
-    <h1 class="text-white truncate text-lg flex items-center font-heading">
-      <span class="text-accent mr-2 w-6 h-6 relative">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="text-white/40 absolute blur-[2px] fill-current w-6 h-6">
-          <path fill-rule="evenodd" d="M14.615 1.595a.75.75 0 01.359.852L12.982 9.75h7.268a.75.75 0 01.548 1.262l-10.5 11.25a.75.75 0 01-1.272-.71l1.992-7.302H3.75a.75.75 0 01-.548-1.262l10.5-11.25a.75.75 0 01.913-.143z" clip-rule="evenodd" />
-        </svg>	
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="absolute fill-current w-6 h-6">
-          <path fill-rule="evenodd" d="M14.615 1.595a.75.75 0 01.359.852L12.982 9.75h7.268a.75.75 0 01.548 1.262l-10.5 11.25a.75.75 0 01-1.272-.71l1.992-7.302H3.75a.75.75 0 01-.548-1.262l10.5-11.25a.75.75 0 01.913-.143z" clip-rule="evenodd" />
-        </svg>									
-      </span>
-      All Archetypes
-    </h1>
+    <div class="flex items-center justify-between">
+      <h1 class="text-white truncate text-lg flex items-center font-heading">
+        <span class="text-accent mr-2 w-6 h-6 relative">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="absolute fill-current w-6 h-6">
+            <path fill-rule="evenodd" d="M14.615 1.595a.75.75 0 01.359.852L12.982 9.75h7.268a.75.75 0 01.548 1.262l-10.5 11.25a.75.75 0 01-1.272-.71l1.992-7.302H3.75a.75.75 0 01-.548-1.262l10.5-11.25a.75.75 0 01.913-.143z" clip-rule="evenodd" />
+          </svg>									
+        </span>
+        Archetypes
+      </h1>
+      
+    </div>
     <div class="grid grid-cols-2 gap-2 w-full mt-3 md:grid-cols-4">
   
       {archetypes.map(archetype => <ListArchetype archetype={archetype} />)}
