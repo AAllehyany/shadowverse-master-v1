@@ -11,13 +11,16 @@
 		clearTimeout(timer);
 		timer = setTimeout(async () => {
       
-      data = await getDecksByCard(v);
+      if(v != "") {
+        data = await getDecksByCard(v);
+      }
     
 		}, 750);
 	}
 
   function hideModal() {
     modal.set(false)
+    data=[];
   }
 </script>
 
@@ -50,6 +53,6 @@
     top: 15%;
     left: 50%;
     translate: -50% -15%;
-    @apply rounded-lg absolute bg-primary border border-secondary w-96 min-h-[500px] p-5;
+    @apply rounded-lg absolute bg-primary border border-secondary w-full max-w-sm p-5 mx-auto;
   }
 </style>

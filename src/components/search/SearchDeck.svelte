@@ -9,9 +9,7 @@
   <img src={deck.imageURL} alt={deck.slug} class=" w-[50px] aspect-square object-cover rounded-md">
 
   <div class="px-2 flex w-full justify-between items-center">
-    <div>
       <h2 class="text-white font-bold text-md font-heading">{deck.slug.replaceAll('-',' ')}</h2>
-    </div>
   </div>
   <!-- <div class="flex h-full items-center w-10 ">
     <img src="https://ik.imagekit.io/svmaster/assets/tr:w-50/gm.png" class="w-8">
