@@ -1,14 +1,15 @@
 ---
-import { getDecks } from "../../api";
+import { getAllArchetypes, getDecks } from "../../api";
 import Layout from "../../layouts/Layout.astro";
 import RecentDecksSection from "../../RecentDecksSection.astro";
 
 const decks = await getDecks(0);
+const archetypes = await getAllArchetypes();
 ---
 
 <Layout title="All Decks">
   <div class="w-full max-w-screen-lg mx-auto mt-10 px-5 mb-10">
-    <RecentDecksSection decks={decks} />
+    <RecentDecksSection decks={decks} archetypes={archetypes}/>
     <div class="w-full flex items-center mt-5 justify-end">
       <a href="/decks/1" class="bg-secondary px-3 py-1 font-primary hover:bg-secondary/80 rounded-md ">Next </a>
     </div>
