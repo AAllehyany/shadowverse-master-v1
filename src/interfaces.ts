@@ -2,6 +2,7 @@ export interface ArchetypeData {
   name: string;
   imageURL: string;
   slug: string;
+  archetype_id: number;
 }
 
 export interface ArchetypeBreakdown {
