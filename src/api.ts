@@ -5,6 +5,14 @@ import { supabase } from './supabaseSettings';
 
 const archetypeBucket = `https://ik.imagekit.io/svmaster/assets/`
 
+export async function getAllCrafts() {
+
+  const {data, error} = await supabase.from('crafts').select().gt('id', 0);
+
+  if(error) console.log(error);
+
+  return data.map(d => ({...d, imageURL: `${archetypeBucket}${d.name.toLowerCase()}.png`}));
+}
 
 export async function getTopArchetypesSupa(n = 5) {
   
@@ -25,7 +33,11 @@ export async function getTopArchetypesSupa(n = 5) {
 
 export async function getAllArchetypes() {
   
-  const {data, error} = await supabase.rpc('get_top_archetypes');
+  const {data, error} = await supabase
+    .from('all_archetypes')
+    .select()
+    .order('craft_id')
+    .order('archetype_name');
   
   if(error) {
     console.log(error);
@@ -36,7 +48,30 @@ export async function getAllArchetypes() {
     name: d.archetype_name,
     slug: d.slug,
     imageURL: `${archetypeBucket}${d.slug}.png`,
-    archetype_id: d.archetype_id
+    archetype_id: d.archetype_id,
+    craft_id: d.craft_id
+  }));
+}
+
+export async function getCraftArchetypes(id: number) {
+  
+  const {data, error} = await supabase
+    .from('all_archetypes')
+    .select()
+    .order('archetype_name')
+    .eq('craft_id', id);
+  
+  if(error) {
+    console.log(error);
+    return;
+  }
+
+  return data.map(d => ({
+    name: d.archetype_name,
+    slug: d.slug,
+    imageURL: `${archetypeBucket}${d.slug}.png`,
+    archetype_id: d.archetype_id,
+    craft_id: d.craft_id
   }));
 }
 
