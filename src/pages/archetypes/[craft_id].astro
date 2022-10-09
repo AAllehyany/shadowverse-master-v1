@@ -1,12 +1,11 @@
 ---
-import { getAllArchetypes, getAllCrafts } from "../../api";
+import { getAllArchetypes, getAllCrafts, getCraftArchetypes } from "../../api";
 import ListArchetype from "../../components/archetypes/ListArchetype.astro";
 import Layout from "../../layouts/Layout.astro";
 
-const archetypes = await getAllArchetypes();
+const {craft_id} = Astro.params;
+const archetypes = await getCraftArchetypes(craft_id as number);
 const crafts = await getAllCrafts();
-
-
 ---
 
 <Layout title="Format Archetypes">
