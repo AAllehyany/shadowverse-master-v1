@@ -22,7 +22,7 @@ const {decks, archetypes} = Astro.props;
     </h1>
   </div>
   <div class="w-full">
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-2 mt-3">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-3 mt-3">
       {decks.map(deck => <RecentDeck deck={deck} />)}
     </div>
   </div>
