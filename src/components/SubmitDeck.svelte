@@ -1,5 +1,5 @@
 <script>
-  import {createNewDeck} from '../api'
+// import {createNewDeck} from '../api'
     import { supabase } from '../supabaseSettings';
   let deckCode;
   let deckName;
