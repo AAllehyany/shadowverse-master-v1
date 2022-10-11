@@ -7,17 +7,18 @@ export interface Props {
 const {deck} = Astro.props
 ---
 
-<a href={deck.deckLink} target="_blank"
-  class="transition duration-300 group flex items-center w-full h-[70px] rounded-lg overflow-hidden bg-primary/90 hover:bg-primary/40 px-3">
-  <img src={deck.imageURL} alt={deck.archetype} class=" w-[50px] aspect-square object-cover rounded-md">
-
-  <div class="px-2 flex w-full justify-between items-center">
-    <div>
-      <h2 class="text-white font-bold text-md font-heading">{deck.archetype}</h2>
-      <span class="text-white text-xs text-center">By: Unkown</span>
-    </div>
-  </div>
-  <!-- <div class="flex h-full items-center w-10 ">
-    <img src="https://ik.imagekit.io/svmaster/assets/tr:w-50/gm.png" class="w-8">
-  </div> -->
-</a>
+<div class="transition duration-300 flex flex-col items-center w-full rounded-lg bg-black/30 relative">
+  {(deck.source ) && 
+  <div class="px-2 py-1 bg-yellow-500 text-xs text-white absolute top-2 right-1 rounded-l-lg">JCG</div>}
+  <img src={deck.imageURL} class="w-full aspect-square object-cover rounded-lg p-1">
+  <a href={`/archetype/${deck.archetypeSlug}`} target="_blank" class="transition duration-300 text-secondary mt-2 hover:text-secondary/40">{deck.archetype}</a>
+  {deck.source && <span class="text-secondary/50 text-xs mt-1"><strong>From: </strong> {deck.player_name}</span>}
+  <a href={deck.deckLink} target="_blank" class=" group py-2 rounded-b-lg bg-black/5 text-sm  text-secondary mt-3 w-full flex items-center justify-center">
+    Get Code 
+    <span class="ml-2 transition duration-300 group-hover:translate-x-1">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3" />
+      </svg>      
+    </span>
+  </a>
+</div>
