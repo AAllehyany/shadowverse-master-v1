@@ -92,7 +92,8 @@ export async function getDecks(page = 0) {
       archetype:archetype_id (name, slug),
       player_name,
       player_link,
-      source
+      source,
+      score
     `).eq('format', 3).order('created_at', {ascending: false}).range(range.from, range.to);
 
   if(data == null) return [];
