@@ -89,15 +89,22 @@ export async function getDecks(page = 0) {
   const {data, error} = await supabase.from('decks')
     .select(`
       deck_link,
-      archetype:archetype_id (name, slug)
+      archetype:archetype_id (name, slug),
+      player_name,
+      player_link,
+      source
     `).eq('format', 3).order('created_at', {ascending: false}).range(range.from, range.to);
 
   if(data == null) return [];
+  console.log(data);
   return data.map(deck => ({
     archetype: deck.archetype.name,
+    archetypeSlug: deck.archetype.slug,
     imageURL: `${archetypeBucket}${deck.archetype.slug}.png`,
     deckLink: `https://shadowverse-portal.com/deck/${deck.deck_link}`,
-    player: "unkown"
+    player_name: deck.player_name ? deck.player_name : null,
+    player_link: deck.player_link ? deck.player_link : "#",
+    source: deck.source
   }));
 
   

@@ -22,6 +22,10 @@ export interface ArchetypeBreakdown {
 export interface DeckData {
   archetype: string;
   imageURL: string;
-  player: string;
+  player_name: string;
+  player_link: string;
+  score: number;
+  source: string;
   deckLink: string;
+  archetypeSlug: string;
 }
