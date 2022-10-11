@@ -22,7 +22,7 @@ const {deck} = Astro.props;
 
   
 
-  <div class="w-full border border-secondary rounded-t-md p-2 mt-4 grid grid-cols-4 gap-3 md:grid-cols-6">
+  <div class="w-full border bg-black/10 border-secondary/10 rounded-t-md p-2 mt-4 grid grid-cols-4 gap-3 md:grid-cols-6">
     {deck.deckList.list.map(card => (
       <a href={`https://shadowverse-portal.com/card/${card.card_id}`} target="_blank" class="relative w-[80px] h-[104px] md:w-[150px] md:h-[195px]">
         <img src={card.imageLink} alt="" class="w-[80xp] h-[104px] md:w-[150px] rounded-lg absolute md:h-[195px] object-cover">
@@ -34,6 +34,6 @@ const {deck} = Astro.props;
   </div>
 
   <a href={`https://shadowverse-portal.com/deck/${deck.deckList.deckLink}`} 
-    class="rounded-b-md w-full bg-secondary p-3 text-center font-bold text-sm text-primary hover:underline block">Copy Deck</a>
+    class="rounded-b-md w-full bg-secondary/70 p-3 text-center font-bold text-sm text-primary hover:underline block">Copy Deck</a>
           
 </div>

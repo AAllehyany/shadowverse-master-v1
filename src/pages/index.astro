@@ -13,9 +13,13 @@ const highlight = await getDeckHighlight()
 ---
 
 <Layout title="Shadowverse Master">
-	<div class="w-full max-w-screen-lg mx-auto mt-10 px-5 mb-10">
-		<PopularArchetypesSection archetypes={popularArchetypes} />
+	<div class="w-full  bg-black/10 px-5 py-5 pt-10 mb-10">
+		<div class="w-full max-w-screen-lg mx-auto px-5">
+			<PopularArchetypesSection archetypes={popularArchetypes} />
+		</div>
+	</div>
 
+	<div class="w-full max-w-screen-lg mx-auto px-5">
 		<!-- <RecentDecksSection decks={recentDecks}/> -->
 		<div class="mt-16">
 			<DeckHighlightSection deck={highlight} />

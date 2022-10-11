@@ -23,7 +23,7 @@ const otherPopular = archetypes.slice(1);
     </span>
     Popular Archetypes
   </h1>
-  <div class="grid grid-cols-2 gap-2 w-full mt-3 md:grid-cols-4">
+  <div class="grid grid-cols-2 gap-3 w-full mt-3 md:grid-cols-4">
 
     <LargePopularArchetype archetype={mostPopular} />
     {otherPopular.map(archetype => <PopularArchetype archetype={archetype} />)}
