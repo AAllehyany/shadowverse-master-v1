@@ -12,6 +12,26 @@ export interface SearchResultDeck {
   imageURL: string;
 }
 
+export interface DeckDetails {
+  deck_id: number;
+  card_id: number;
+  archetype_id: number;
+
+  deck_link: string;
+  player_name: string;
+  deck_source: string;
+  deck_format: number;
+
+  archetype_slug: string;
+  archetype_name: string;
+
+  card_name: string;
+  copies: number;
+
+  imageURL: string;
+  
+}
+
 export interface ArchetypeBreakdown {
   name: string;
   imageURL: string;

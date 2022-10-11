@@ -1,6 +1,6 @@
 import {db, auth} from '../firebaseSettings';
 
-import { ArchetypeData, DeckData } from './interfaces';
+import { ArchetypeData, DeckData, DeckDetails } from './interfaces';
 import { supabase } from './supabaseSettings';
 
 const archetypeBucket = `https://ik.imagekit.io/svmaster/assets/`
@@ -104,7 +104,8 @@ export async function getDecks(page = 0) {
     deckLink: `https://shadowverse-portal.com/deck/${deck.deck_link}`,
     player_name: deck.player_name ? deck.player_name : null,
     player_link: deck.player_link ? deck.player_link : "#",
-    source: deck.source
+    source: deck.source,
+    score: deck.score
   }));
 
   
@@ -249,4 +250,19 @@ export async function getDecksByCard(cardName: string) {
   if(error) console.log(error);
 
   return data.map(d => ({slug: d.slug, link: d.deck_link, cardId: d.card_id, imageURL: `${archetypeBucket}${d.slug}.png`}));
+}
+
+export async function searchAllDecks(cardName: string): Promise<DeckDetails[]> {
+
+  const {data, error} = await supabase.from('master_deck_details')
+  .select()
+  .ilike('card_name', `%${cardName}%`)
+  .order('deck_source')
+
+  if(error) console.log(error);
+
+  return data.map(d => ({
+    ...d, 
+    imageURL: `${archetypeBucket}${d.archetype_slug}.png`
+  }));
 }
