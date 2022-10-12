@@ -4,16 +4,15 @@ import Layout from "../../layouts/Layout.astro"
 import ClickableCardThumbnail from '../../components/cards/ClickableCardThumbnail.svelte';
 import CardStatsModal from '../../components/cards/CardStatsModal.svelte';
 import GenerateDeckCode from "../../components/decks/GenerateDeckCode.svelte";
+import DeckList from "../../components/decks/DeckList.astro";
 const {archetype_slug} = Astro.params;
 
 const archetypeData = await getArchetypeBySlug(archetype_slug as string);
 const topCards = await getTopArchetypeCards(archetypeData.id);
 const sampleLists = await getSampleArchetypeList(archetypeData.id);
-const getCardImage = (id) => `https://ik.imagekit.io/svmaster/card_frames/${id}.png?tr=w-150`
-
 ---
 
-<CardStatsModal client:load />
+
 <Layout title="Archetype Breakdown">
   <div class="w-full max-w-screen-lg mx-auto mt-20 px-5 mt-10">
     {archetypeData && 
@@ -48,23 +47,8 @@ const getCardImage = (id) => `https://ik.imagekit.io/svmaster/card_frames/${id}.
         {archetypeData.name} Sample Deck Lists
       </h1>
 
-      <div class="grid grid-cols-1 gap-4 md:grid-cols-3">
-        {sampleLists.map(list =>
-          <div class='w-full'>
-            <div class="w-full border-secondary border rounded-t-md">
-              {list.map(card => (
-                <div class="border-b border-secondary flex items-center justify-between">
-                  <div class="flex items-center p-1">
-                    <img src={getCardImage(card.card_id)} alt="" 
-                    class="w-[45px] rounded-lg">
-                    <a href={`https://shadowverse-portal.com/card/${card.card_id}`} target="_blank" class="ml-2 text-secondary font-heading text-sm underline hover:text-secondary/80 cursor-pointer">{card.card_name}</a>
-                  </div>
-                  <span class="p-1 px-3 font-bold text-md font-heading text-secondary">x{card.copies}</span> 
-                </div>
-              ))}
-            </div>
-            <GenerateDeckCode hash={list[0].deck_link} client:load />          
-          </div>)}
+      <div class="grid grid-cols-1 gap-4 md:grid-cols-3 items-start">
+        {sampleLists.map(list => <DeckList deckData={list} />)}
       </div>
       
     }
