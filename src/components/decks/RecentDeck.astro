@@ -7,14 +7,17 @@ export interface Props {
 const {deck} = Astro.props
 
 const getPlace = (score: number) => {
-  console.log(score);
-  if(score < 5) return "Top 16";
+  
+  if(score == 6) return "1st Place";
+  if(score == 3) return "2nd Place";
+  if(score == 4 || score == 1.5) return "Top 16";
+  return "Tournament";
 }
 ---
 
 <div class="transition duration-300 flex flex-col items-center w-full rounded-lg bg-black/30 relative">
   {(deck.source ) && 
-  <div class="px-2 py-1 bg-yellow-500 text-xs text-white absolute top-2 right-1 rounded-l-lg">{getPlace(deck.score)}</div>}
+  <div class="px-2 py-1 bg-accent text-xs text-primary font-bold absolute top-2 right-1 rounded-l-lg">{getPlace(deck.score)}</div>}
   <img src={deck.imageURL} class="w-full aspect-square object-cover rounded-lg p-1">
   <a href={`/archetype/${deck.archetypeSlug}`} target="_blank" class="transition duration-300 text-secondary mt-2 hover:text-secondary/40">{deck.archetype}</a>
   {deck.source && <span class="text-secondary/50 text-xs mt-1"><strong>From: </strong> {deck.player_name}</span>}

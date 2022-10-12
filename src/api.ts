@@ -85,7 +85,7 @@ export async function getTotalArchetypeDecks(archetype_id) {
 
 export async function getDecks(page = 0) {
 
-  const range = getPagination(page, 24);
+  const range = getPagination(page, 20);
   const {data, error} = await supabase.from('decks')
     .select(`
       deck_link,
@@ -94,7 +94,10 @@ export async function getDecks(page = 0) {
       player_link,
       source,
       score
-    `).eq('format', 3).order('created_at', {ascending: false}).range(range.from, range.to);
+    `).eq('format', 3)
+    .order('score', {ascending: false})
+    .order('created_at', {ascending: false})
+    .range(range.from, range.to);
 
   if(data == null) return [];
   console.log(data);
