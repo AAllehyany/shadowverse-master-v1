@@ -6,6 +6,7 @@ import '@fontsource/merriweather';
 import '@fontsource/fira-sans';
 
 import Header from '../components/Header.astro';
+import CardStatsModal from '../components/cards/CardStatsModal.svelte';
 
 export interface Props {
 	title: string;
@@ -24,6 +25,7 @@ const { title } = Astro.props;
 		<title>{title}</title>
 	</head>
 	<body class="bg-[#272232]">
+		<CardStatsModal client:load />
 		<Header />
 		<div class="mb-10"><slot /></div>
 	</body>
