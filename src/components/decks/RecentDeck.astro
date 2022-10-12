@@ -8,6 +8,10 @@ const {deck} = Astro.props
 
 const getPlace = (score: number) => {
   
+  if(score == 101) return "1st Place";
+  if(score == 102) return "2nd Place";
+  if(score == 103) return "Top 4";
+  if(score == 116) return "Top 16";
   if(score == 6) return "1st Place";
   if(score == 3) return "2nd Place";
   if(score == 4 || score == 1.5) return "Top 16";

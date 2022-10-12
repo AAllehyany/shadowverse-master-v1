@@ -95,7 +95,7 @@ export async function getDecks(page = 0) {
       source,
       score
     `).eq('format', 3)
-    .order('score', {ascending: false})
+    .order('score')    
     .order('created_at', {ascending: false})
     .range(range.from, range.to);
 
