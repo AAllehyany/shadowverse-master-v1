@@ -93,7 +93,8 @@ export async function getDecks(page = 0) {
       player_name,
       player_link,
       source,
-      score
+      score,
+      id
     `).eq('format', 3)
     .order('score')    
     .order('created_at', {ascending: false})
@@ -109,7 +110,8 @@ export async function getDecks(page = 0) {
     player_name: deck.player_name ? deck.player_name : null,
     player_link: deck.player_link ? deck.player_link : "#",
     source: deck.source,
-    score: deck.score
+    score: deck.score,
+    id: deck.id
   }));
 
   
@@ -131,9 +133,9 @@ export async function getDeckHighlight() {
   const {data, error} = await supabase.from('decks').select('id, deck_link').order('created_at', {ascending: false})
       .eq('archetype_id', topArchetype.archetype_id).limit(1).single();
 
-  const deckList = await viewDeckList(data.id, data.deck_link);
+  const deckList = await getDeckDetails(data.id);
 
-  return {archetype: topArchetype, deckList};
+  return deckList;
 }
 
 export const getPagination = (page, size) => {
@@ -242,14 +244,14 @@ export async function getSampleArchetypeList(archetype_id: number) {
 
   if(error) console.log(error);
 
-  return Promise.all(data.map(d => viewDeckList(d.id, d.deck_link)))
+  return Promise.all(data.map(d => getDeckDetails(d.id)))
 }
 
 export async function getDecksByCard(cardName: string) {
 
-  const {data, error} = await supabase.from('rotation_decks')
+  const {data, error} = await supabase.from('master_deck_details')
   .select()
-  .ilike('name', `%${cardName}%`)
+  .ilike('card_name', `%${cardName}%`)
 
   if(error) console.log(error);
 
@@ -269,4 +271,14 @@ export async function searchAllDecks(cardName: string): Promise<DeckDetails[]> {
     ...d, 
     imageURL: `${archetypeBucket}${d.archetype_slug}.png`
   }));
+}
+
+export async function getDeckDetails(deck_id: number) {
+
+  const {data, error} = await supabase.from('master_deck_details')
+    .select().eq('deck_id', deck_id).order('card_cost').order('copies', {ascending: false});
+
+  if(error) console.log(error);
+
+  return data;
 }

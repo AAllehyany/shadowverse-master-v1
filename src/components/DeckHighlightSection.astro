@@ -1,11 +1,14 @@
 ---
+import { FullDeckCardDetails } from '../interfaces';
 import GenerateDeckCode from './decks/GenerateDeckCode.svelte';
 
 export interface Props {
-  deck: any
+  deck: FullDeckCardDetails[]
 }
 
 const {deck} = Astro.props;
+const getCardImage = (id) => `https://ik.imagekit.io/svmaster/card_frames/${id}.png?tr=w-150`
+
 // const deck = await getDeckHighlight();
 ---
 
@@ -18,15 +21,15 @@ const {deck} = Astro.props;
       </svg>                      
     </span>
     Deck Highlight
-    <span class="px-2 font-sans font-normal italic text-md text-secondary/80">({deck.archetype.archetype_name})</span>
+    <span class="px-2 font-sans font-normal italic text-md text-secondary/80">({deck[0].archetype_name})</span>
   </h1>
 
   
 
   <div class="w-full border bg-black/10 border-secondary/10 rounded-t-md p-2 mt-4 grid grid-cols-4 gap-3 md:grid-cols-6">
-    {deck.deckList.list.map(card => (
+    {deck.map(card => (
       <a href={`https://shadowverse-portal.com/card/${card.card_id}`} target="_blank" class="relative w-[80px] h-[104px] md:w-[150px] md:h-[195px]">
-        <img src={card.imageLink} alt="" class="w-[80xp] h-[104px] md:w-[150px] rounded-lg absolute md:h-[195px] object-cover">
+        <img src={getCardImage(card.card_id)} alt="" class="w-[80xp] h-[104px] md:w-[150px] rounded-lg absolute md:h-[195px] object-cover">
         <div class="flex items-center justify-center w-full absolute bottom-0">
           <span class="bg-secondary/80 flex items-center w-6 h-6 md:w-8 md:h-8 font-bold justify-center text-black rounded-full">{card.copies}</span>
         </div>
@@ -34,5 +37,5 @@ const {deck} = Astro.props;
     ))}
   </div>
 
-  <GenerateDeckCode hash={deck.deckList.deckLink} client:load /> 
+  <GenerateDeckCode hash={deck[0].deck_link} client:load /> 
 </div>

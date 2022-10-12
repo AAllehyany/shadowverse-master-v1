@@ -19,13 +19,13 @@ const getPlace = (score: number) => {
 }
 ---
 
-<div class="transition duration-300 flex flex-col items-center w-full rounded-lg bg-black/30 relative">
+<div class="transition duration-300 flex flex-col items-center w-full rounded-lg bg-black/10 relative overflow-hidden border border-black/30">
   {(deck.source ) && 
-  <div class="px-2 py-1 bg-accent text-xs text-primary font-bold absolute top-2 right-1 rounded-l-lg">{getPlace(deck.score)}</div>}
-  <img src={deck.imageURL} class="w-full aspect-square object-cover rounded-lg p-1">
+  <div class="px-2 py-1 bg-accent text-xs text-primary font-bold absolute top-2 right-0 rounded-l-lg z-50">{getPlace(deck.score)}</div>}
+  <a href={`/deck/view/${deck.id}`}><img src={deck.imageURL} class="w-full aspect-square object-cover rounded-t-lg hover:scale-105 transition duration-300"></a>
   <a href={`/archetype/${deck.archetypeSlug}`} target="_blank" class="transition duration-300 text-secondary mt-2 hover:text-secondary/40">{deck.archetype}</a>
-  {deck.source && <span class="text-secondary/50 text-xs mt-1"><strong>From: </strong> {deck.player_name}</span>}
-  <a href={deck.deckLink} target="_blank" class=" group py-2 rounded-b-lg bg-black/5 text-sm  text-secondary mt-3 w-full flex items-center justify-center">
+  {deck.source && <span class="text-secondary/50 text-[0.75rem] mt-1">{deck.player_name}</span>}
+  <a href={deck.deckLink} target="_blank" class=" group py-2 rounded-b-lg bg-black/20 text-sm  text-secondary mt-3 w-full flex items-center justify-center">
     Get Code 
     <span class="ml-2 transition duration-300 group-hover:translate-x-1">
       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">

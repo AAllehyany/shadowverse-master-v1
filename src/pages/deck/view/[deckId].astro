@@ -1,21 +1,43 @@
 ---
-import { viewDeckList } from "../../../api";
+import { getDeckDetails, viewDeckList } from "../../../api";
+import { FullDeckCardDetails } from "../../../interfaces";
 import Layout from "../../../layouts/Layout.astro"
 const {deckId} = Astro.params;
 
-const deckData = await viewDeckList(deckId as number);
+const deckData: FullDeckCardDetails[] = await getDeckDetails(deckId as number);
+const first = deckData[0];
+
+const getImageArchetype = (slug) => `https://ik.imagekit.io/svmaster/assets/${slug}.png`
+const getCardImage = (id) => `https://ik.imagekit.io/svmaster/cards/${id}.png?tr=w-450,h-80,cm-extract,fo-face`
 ---
 
 <Layout title="Deck View">
 
-  <div class="w-full max-w-screen-lg mx-auto mt-10">
+  <div class="w-full max-w-screen-lg mx-auto mt-10 px-5">
 
-    <h1 class="text-white">Deck Display.</h1>
-<!-- 
-    <div class="grid grid-cols-1 md:grid-cols-8 gap-1 p-3 ">
-      {deckData.map(d => (
-        <img src={d.imageLink} class="w-full object-cover h-full rounded-lg" />
-      ))}
-    </div> -->
+    <div class="w-full max-w-[350px] ">
+    <!-- Deck View Header -->
+    <div class="flex items-center justify-between w-full mb-2">
+      <div>
+        <h1 class="font-heading text-lg text-secondary capitalize mb-1">{first.archetype_name}</h1>
+        <p class="px-2 text-sm text-secondary/80">{first.player_name}</p>
+      </div>
+
+      <button class="py-2 px-4 bg-secondary/80 text-primary hover:bg-secondary/50 rounded-md">Copy Deck</button>
+    </div>
+    <!-- /Deck View Header -->
+
+    <!-- Deck View Deck List -->
+    {deckData.map(card => (
+      <div class="flex bg-black/[.15] mb-[.125rem] w-full items-center justify-between h-[45px] relative overflow-hidden rounded-md">
+        <img src={getCardImage(card.card_id)} class="w-full object-cover h-full" />
+        <div class="absolute bg-black/[.90] w-full h-full flex px-3 items-center justify-between">
+          <p class="text-secondary font-heading">{card.card_name}</p>
+          <p class="flex w-6 h-6 items-center bg-secondary text-primary rounded-full justify-center font-heading">{card.copies}</p>
+        </div>
+      </div>
+    ))}
+    </div>
+
   </div>
 </Layout>

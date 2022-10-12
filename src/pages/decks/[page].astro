@@ -13,6 +13,14 @@ const decks = await getDecks(page as number);
 
 <Layout title="All Decks">
   <div class="w-full max-w-screen-lg mx-auto mt-10 px-5 mb-10">
+    <!-- <div class="w-full mt-2 ">
+      {decks.map(deck => (
+        <div class="flex items-center p-2 bg-black/30 mb-2 rounded-md">
+          <img src={deck.imageURL} alt="" class="w-10 aspect-square rounded-md">
+        </div>
+      ))}
+    </div> -->
+    
     <RecentDecksSection decks={decks} archetypes={archetypes}/>
     <div class="w-full flex items-center mt-5 justify-between">
       <a href={"/decks/" + prev} class="bg-secondary px-3 py-1 font-primary hover:bg-secondary/80 rounded-md ">Prev </a>

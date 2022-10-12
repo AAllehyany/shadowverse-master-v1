@@ -48,4 +48,21 @@ export interface DeckData {
   source: string;
   deckLink: string;
   archetypeSlug: string;
+  id: number;
+}
+
+export interface FullDeckCardDetails {
+  deck_link: string;
+  deck_id: number;
+  deck_source: string;
+  player_name: string;
+  deck_format: number;
+  archetype_slug: string;
+  archetype_name: string;
+  archetype_id: number;
+  card_id: number;
+  card_name: string;
+  copies: number;
+  score: number;
+  card_cost: number;
 }

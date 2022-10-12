@@ -9,6 +9,8 @@ const {archetype_slug} = Astro.params;
 const archetypeData = await getArchetypeBySlug(archetype_slug as string);
 const topCards = await getTopArchetypeCards(archetypeData.id);
 const sampleLists = await getSampleArchetypeList(archetypeData.id);
+const getCardImage = (id) => `https://ik.imagekit.io/svmaster/card_frames/${id}.png?tr=w-150`
+
 ---
 
 <CardStatsModal client:load />
@@ -50,18 +52,18 @@ const sampleLists = await getSampleArchetypeList(archetypeData.id);
         {sampleLists.map(list =>
           <div class='w-full'>
             <div class="w-full border-secondary border rounded-t-md">
-              {list.list.map(card => (
+              {list.map(card => (
                 <div class="border-b border-secondary flex items-center justify-between">
                   <div class="flex items-center p-1">
-                    <img src={card.imageLink} alt="" 
+                    <img src={getCardImage(card.card_id)} alt="" 
                     class="w-[45px] rounded-lg">
-                    <a href={`https://shadowverse-portal.com/card/${card.card_id}`} target="_blank" class="ml-2 text-secondary font-heading text-sm underline hover:text-secondary/80 cursor-pointer">{card.name}</a>
+                    <a href={`https://shadowverse-portal.com/card/${card.card_id}`} target="_blank" class="ml-2 text-secondary font-heading text-sm underline hover:text-secondary/80 cursor-pointer">{card.card_name}</a>
                   </div>
                   <span class="p-1 px-3 font-bold text-md font-heading text-secondary">x{card.copies}</span> 
                 </div>
               ))}
             </div>
-            <GenerateDeckCode hash={list.deckLink} client:load />          
+            <GenerateDeckCode hash={list[0].deck_link} client:load />          
           </div>)}
       </div>
       
