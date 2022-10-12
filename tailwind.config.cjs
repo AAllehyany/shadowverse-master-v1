@@ -14,7 +14,8 @@ module.exports = {
 				sans: ['Roboto', 'sans-serif'],
 				heading: ['Fira Sans', 'sans-serif'],
 				'oswald': ['Oswald', 'sans-serif'],
-				'merriweather': ['Merriweather', 'sans-serif']
+				'merriweather': ['Merriweather', 'sans-serif'],
+				'jp': 'Noto Sans JP'
 			},
 			opacity: {
 				'8': '.08'
