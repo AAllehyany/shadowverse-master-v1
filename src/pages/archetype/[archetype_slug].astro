@@ -3,6 +3,7 @@ import { getArchetypeBySlug, getSampleArchetypeList, getTopArchetypeCards } from
 import Layout from "../../layouts/Layout.astro"
 import ClickableCardThumbnail from '../../components/cards/ClickableCardThumbnail.svelte';
 import CardStatsModal from '../../components/cards/CardStatsModal.svelte';
+import GenerateDeckCode from "../../components/decks/GenerateDeckCode.svelte";
 const {archetype_slug} = Astro.params;
 
 const archetypeData = await getArchetypeBySlug(archetype_slug as string);
@@ -60,9 +61,7 @@ const sampleLists = await getSampleArchetypeList(archetypeData.id);
                 </div>
               ))}
             </div>
-            <a href={`https://shadowverse-portal.com/deck/${list.deckLink}`} 
-            class="w-full bg-secondary p-3 rounded-b-md text-center font-bold text-sm text-primary hover:underline block">Copy Deck</a>
-          
+            <GenerateDeckCode hash={list.deckLink} client:load />          
           </div>)}
       </div>
       

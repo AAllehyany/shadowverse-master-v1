@@ -1,4 +1,6 @@
 ---
+import GenerateDeckCode from './decks/GenerateDeckCode.svelte';
+
 export interface Props {
   deck: any
 }
@@ -32,7 +34,5 @@ const {deck} = Astro.props;
     ))}
   </div>
 
-  <a href={`https://shadowverse-portal.com/deck/${deck.deckList.deckLink}`} 
-    class="rounded-b-md w-full bg-secondary/70 p-3 text-center font-bold text-sm text-primary hover:underline block">Copy Deck</a>
-          
+  <GenerateDeckCode hash={deck.deckList.deckLink} client:load /> 
 </div>
