@@ -1,0 +1,31 @@
+---
+import { FullDeckCardDetails } from '../../interfaces';
+import DeckViewHeader from './DeckViewHeader.svelte'
+
+export interface Props {
+  deckData: FullDeckCardDetails[]
+}
+
+const {deckData} = Astro.props;
+const first = deckData[0];
+
+const getCardImage = (id) => `https://ik.imagekit.io/svmaster/cards/${id}.png?tr=w-450,h-80,cm-extract,fo-face`
+const getCardLink = (id) => `https://shadowverse-portal.com/card/${id}`
+
+---
+<div class="w-full max-w-[350px] bg-black/30 overflow-hidden rounded-lg border-secondary/20 border">
+  <!-- Deck View Header -->
+    <DeckViewHeader deck={first} client:load />
+    <!-- /Deck View Header -->
+
+    <!-- Deck View Deck List -->
+    {deckData.map(card => (
+      <div class="flex bg-black/[.15] mb-[.125rem] w-full items-center justify-between h-[45px] relative overflow-hidden">
+        <img src={getCardImage(card.card_id)} class="w-full object-cover h-full" />
+        <div class="absolute bg-black/[.90] w-full h-full flex px-3 items-center justify-between">
+          <a target="_blank" href={getCardLink(card.card_id)} class="text-secondary font-heading underline">{card.card_name}</a>
+          <p class="flex w-8 h-8 items-center text-sm font-bold bg-secondary/80 text-primary rounded-full justify-center font-heading">{card.copies}</p>
+        </div>
+      </div>
+    ))}
+</div>
