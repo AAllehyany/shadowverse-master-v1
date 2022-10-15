@@ -1,7 +1,6 @@
 ---
-import { getDeckDetails, viewDeckList } from "../../../api";
 import DeckList from "../../../components/decks/DeckList.astro";
-import { FullDeckCardDetails } from "../../../interfaces";
+import { FullDeckCardDetails, getDeckDetails } from "../../../database/decks";
 import Layout from "../../../layouts/Layout.astro"
 const {deckId} = Astro.params;
 
