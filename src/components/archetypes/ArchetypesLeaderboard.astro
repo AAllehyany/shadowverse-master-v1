@@ -1,0 +1,27 @@
+---
+import { Archetype, getTopArchetypes } from "../../database/archetypes";
+
+const topArchetypes = await getTopArchetypes();
+const getArchetypeImage = (slug) => `https://ik.imagekit.io/svmaster/assets/tr:w-400/${slug}.png`;
+---
+
+<div class="w-full">
+
+  <div class="flex items-center text-secondary bg-black/20 py-2 px-2">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="fill-current h-5 w-5">
+      <!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
+      <path d="M16 288L320 0 260.7 197.6 432 224 128 512l59.3-197.6L16 288z"/>
+    </svg>
+    <h1 class="font-heading text-secondary font-black text-lg ml-2">
+      Most Played
+    </h1>
+  </div>
+  <div class="grid grid-cols-1 border border-black/20 bg-black/20">
+
+    {topArchetypes.map(archetype => (
+      <div class="w-full px-1 flex items-center">
+        <img src={getArchetypeImage(archetype.slug)} class="w-12 object-cover aspect-square">
+      </div>
+    ))}
+  </div>
+</div>

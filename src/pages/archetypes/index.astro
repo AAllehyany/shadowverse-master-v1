@@ -1,6 +1,6 @@
 ---
-import { getAllArchetypes, getAllCrafts } from "../../api";
 import ListArchetype from "../../components/archetypes/ListArchetype.astro";
+import { getAllArchetypes, getAllCrafts } from "../../database/archetypes";
 import Layout from "../../layouts/Layout.astro";
 
 const archetypes = await getAllArchetypes();

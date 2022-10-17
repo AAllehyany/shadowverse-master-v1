@@ -1,0 +1,86 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Archetype {
+  id        String     @id @db.Uuid
+  slug      String     @unique
+  name      String
+  craftId   Int
+  createdAt DateTime   @default(now())
+  craft     Craft      @relation(fields: [craftId], references: [id])
+  deckLists DeckList[]
+}
+
+model Card {
+  id        Int        @id
+  name      String
+  cost      Int
+  baseId    Int
+  craftId   Int
+  createdAt DateTime   @default(now())
+  rotation  Int
+  craft     Craft      @relation(fields: [craftId], references: [id])
+  decks     DeckList[]
+}
+
+model Craft {
+  id        Int         @id
+  name      String
+  createdAt DateTime    @default(now())
+  Archetype Archetype[]
+  cards     Card[]
+}
+
+model Deck {
+  id           String     @id @db.Uuid
+  archetypeId  String     @db.Uuid
+  craftId      Int
+  playerName   String
+  playerId     String
+  rotationId   String     @db.Uuid
+  hash         String
+  format       Int        @default(3)
+  createdAt    DateTime   @default(now())
+  placement    Int        @default(0)
+  tournamentId String
+  rotation     Rotation   @relation(fields: [rotationId], references: [id])
+  tournament   Tournament @relation(fields: [tournamentId], references: [realId])
+  cards        DeckList[]
+}
+
+model DeckList {
+  deckId      String    @db.Uuid
+  cardId      Int
+  copies      Int
+  createdAt   DateTime  @default(now())
+  archetypeId String    @db.Uuid
+  archetype   Archetype @relation(fields: [archetypeId], references: [id])
+  card        Card      @relation(fields: [cardId], references: [id])
+  deck        Deck      @relation(fields: [deckId], references: [id])
+
+  @@id([deckId, cardId])
+}
+
+model Rotation {
+  id        String   @id @db.Uuid
+  createdAt DateTime @default(now())
+  name      String
+  decks     Deck[]
+}
+
+model Tournament {
+  id           String   @id @db.Uuid
+  format       Int      @default(3)
+  link         String
+  participants Int
+  createdAt    DateTime @default(now())
+  realId       String   @unique
+  date         DateTime @db.Date
+  decks        Deck[]
+}

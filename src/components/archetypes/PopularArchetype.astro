@@ -1,4 +1,6 @@
 ---
+import { Archetype } from '../../database/archetypes';
+
 interface ArchetypeData {
   name: string;
   imageURL: string;
@@ -7,15 +9,17 @@ interface ArchetypeData {
 
 export interface Props{
 
-  archetype: ArchetypeData
+  archetype: Archetype
 }
 
 const { archetype } = Astro.props;
+const getImage = (slug) => `https://ik.imagekit.io/svmaster/assets/${slug}.png`
+
 ---
 
 <a href={`/archetype/${archetype.slug}`}
   class="group relative w-full aspect-square md:h-full overflow-hidden border-secondary/60 -border rounded-lg">
-  <img src={archetype.imageURL} alt={archetype.slug}
+  <img src={getImage(archetype.slug)} alt={archetype.slug}
   class="w-full h-full object-cover absolute
   transition duration-700 group-hover:scale-105">
   <div class="flex w-full items-end justify-center absolute bottom-1 right-1 ">

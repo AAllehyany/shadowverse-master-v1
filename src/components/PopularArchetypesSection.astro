@@ -1,10 +1,11 @@
 ---
+import { Archetype } from '../database/archetypes';
 import { ArchetypeData } from '../interfaces';
 import LargePopularArchetype from './archetypes/LargePopularArchetype.astro';
 import PopularArchetype from './archetypes/PopularArchetype.astro';
 
 export interface Props {
-  archetypes: ArchetypeData[]
+  archetypes: Archetype[]
 }
 
 const {archetypes} = Astro.props;

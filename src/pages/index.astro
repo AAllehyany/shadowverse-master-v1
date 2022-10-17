@@ -1,6 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import {getDeckHighlight, getTopArchetypesSupa} from '../api'
+import {getTopArchetypes} from '../database/archetypes'
 import PopularArchetypesSection from '../components/PopularArchetypesSection.astro';
 import RecentDecksSection from '../RecentDecksSection.astro';
 import DeckHighlightSection from '../components/DeckHighlightSection.astro';
@@ -8,7 +9,7 @@ import DeckHighlightSection from '../components/DeckHighlightSection.astro';
 // const recentDecks = await getRecentCommunityDecks();
 // const recentDecks = await getNewDecks();
 // const topArchetypes = await ();
-const popularArchetypes = await getTopArchetypesSupa();
+const popularArchetypes = await getTopArchetypes();
 const highlight = await getDeckHighlight()
 ---
 
